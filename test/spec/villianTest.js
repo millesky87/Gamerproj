@@ -19,6 +19,3 @@ Squirrel.prototype.useEvilLaugh = function(){
 var Charlie = new Squirrel("Charlie");
 
 Charlie.useEvilLaugh();
-
-
-window

@@ -1,10 +1,9 @@
-
 var playerTypes = {
-	"User": ["Jonathan", "Skylar", "Mady"],
-	"Computer": ["Jake", "Mason", "Matt"]
-},
-user,
-computer;
+    "User": ["Jonathan", "Skylar", "Mady"],
+    "Computer": ["Jake", "Mason", "Matt"]
+  },
+  user,
+  computer;
 
 /* ------------------------------------------------
 	Add player choices to DOM
@@ -20,10 +19,12 @@ computerSelect = new Template({
   where: 'computer-select'
 });
 
-function displayPlayers(data, constructor){
-	_.chain(data).each(function(type){
-		constructor.render({"name":type});
-	});
+function displayPlayers(data, constructor) {
+  _.chain(data).each(function(type) {
+    constructor.render({
+      "name": type
+    });
+  });
 }
 
 displayPlayers(playerTypes.User, userSelect);
@@ -34,59 +35,51 @@ displayPlayers(playerTypes.Computer, computerSelect);
 	Create Players
 */
 
-function Player(options){
-	this.health = 100;
-	this.autoTurn = false;
-	this.id = 1;
+function Player(options) {
+  this.health = 100;
+  this.autoTurn = false;
+  this.id = 1;
 }
 
 // Attack prototype
-Player.prototype.attack = function(attacked){
-	var hitPoints = Math.floor(Math.random()*10);
-	//console.log(hitPoints);
-	attacked.health = attacked.health - hitPoints;
-	if (this instanceof User){
-		$(".human .attack-history").append("<li>Attacked and took "+hitPoints+" health points from " +computer.name+"</li>");
-	}
-	else 
-		$(".computer .attack-history").append("<li>Attacked and took "+hitPoints+" health points from "+user.name+"</li>");
+Player.prototype.attack = function(attacked) {
+  var hitPoints = Math.floor(Math.random() * 10);
+  //console.log(hitPoints);
+  attacked.health = attacked.health - hitPoints;
+  if (this instanceof User) {
+    $(".human .attack-history").append("<li>Attacked and took " + hitPoints + " health points from " + computer.name + "</li>");
+  } else
+    $(".computer .attack-history").append("<li>Attacked and took " + hitPoints + " health points from " + user.name + "</li>");
 };
+
 
 /* ------------------------------------------------
 	Create Users (human)
 */
 
-function User(options){
-	if(!options) options = {};
-	console.log("OPtions:",options);
-	Player.apply(this, arguments);
-	this.weapon = options.weapon || "";
-	this.power = options.power || "";
-	this.name = options.name || "";
+function User(options) {
+  if (!options) options = {};
+  console.log("OPtions:", options);
+  Player.apply(this, arguments);
+  this.weapon = options.weapon || "";
+  this.power = options.power || "";
+  this.name = options.name || "";
 }
-<<<<<<< Updated upstream
 User.prototype = Object.create(Player.prototype);
 
 var mady = new User({
-	power : 200,
-	weapon: "ninja powers",
-	name: "Mady"
+  power: 200,
+  weapon: "ninja powers",
+  name: "Mady"
 });
-=======
-User.prototype = Object.create(Player.prototype)	;
-
-var jonathan = new User({"tools": "sword"});
-var skylar = new User({});
-var mady = new User({});
->>>>>>> Stashed changes
 
 /* ------------------------------------------------
 	Create Computers (enemies)
 */
 
-function Computer(){
-	Player.apply(this, arguments);
-	this.autoTurn = true;
+function Computer() {
+  Player.apply(this, arguments);
+  this.autoTurn = true;
 }
 Computer.prototype = Object.create(Player.prototype);
 
@@ -105,64 +98,52 @@ var computer = new Computer();
 //$(".computer .health::after").width(jonathan.health);
 
 
-$(document).on("click", ".play", function(e){
-	e.preventDefault();
-	var userName = $(".user-select").val();
-	var computerName = $(".computer-select").val();
+$(document).on("click", ".play", function(e) {
+  e.preventDefault();
+  var userName = $(".user-select").val();
+  var computerName = $(".computer-select").val();
 
-	user = new User();
-	user.name = userName;
-	computer = new Computer();
-	computer.name = computerName;
+  user = new User();
+  user.name = userName;
+  computer = new Computer();
+  computer.name = computerName;
 
-	if(userName == "Mady"){
-		user = mady;
-	}
+  if (userName == "Mady") {
+    user = mady;
+  }
 
-	$(".human p").html("<p>"+user.name+"</p>");
-	$(".computer p").html("<p>"+computer.name+"</p>");
-	console.log("User: ", user, "Computer: ", computer);
+  $(".human p").html("<p>" + user.name + "</p>");
+  $(".computer p").html("<p>" + computer.name + "</p>");
+  console.log("User: ", user, "Computer: ", computer);
 
 });
 
-$(document).on("click", ".attack", function(e){
-	e.preventDefault();
-<<<<<<< Updated upstream
-	// console.log(jake.health);
-	// console.log("Attack!");
+$(document).on("click", ".attack", function(e) {
+  e.preventDefault();
+  // console.log(jake.health);
+  // console.log("Attack!");
 
-	// Attack method
-	user.attack(computer);
-	computer.attack(user);
-=======
-	console.log("Attack!");
-	var user = $(".user-select").val();
-	var computer = $(".computer-select").val();
+  // Attack method
+  user.attack(computer);
+  computer.attack(user);
 
-	jonathan.attack(jake);
-	jake.attack(jonathan);
->>>>>>> Stashed changes
+  if (user.health <= 0 && user.health < computer.health) {
+    $(".attack").addClass("hide");
+    $(".main-wrap").addClass("hide");
+    $(".you-lose").removeClass("hide");
+  }
 
-	$(".human .health span").css({width: user.health+"%"});
-	$(".computer .health span").css({width: computer.health+"%"});
+  if (computer.health <= 0 && computer.health < user.health) {
+    $(".attack").addClass("hide");
+    $(".main-wrap").addClass("hide");
+    $(".you-win").removeClass("hide");
+  }
 
-<<<<<<< Updated upstream
-=======
-	if(jonathan.health <= 0 && jonathan.health < jake.health) {
-		$(".attack").addClass("hide");
-		$(".main-wrap").addClass("hide");
-		$(".you-lose").removeClass("hide");
-	}
+  $(".human .health span").css({
+    width: user.health + "%"
+  });
+  $(".computer .health span").css({
+    width: computer.health + "%"
+  });
 
-	if(jake.health <=0 && jake.health < jonathan.health) {
-		$(".attack").addClass("hide");
-		$(".main-wrap").addClass("hide");
-		$(".you-win").removeClass("hide");
-	}
-
-	//console.log(user,computer)
-	//user.attack(computer);
->>>>>>> Stashed changes
 });
-
-
