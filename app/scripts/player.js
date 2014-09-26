@@ -52,7 +52,6 @@ Player.prototype.attack = function(attacked){
 		$(".computer .attack-history").append("<li>Attacked and took "+hitPoints+" health points from "+user.name+"</li>");
 };
 
-
 /* ------------------------------------------------
 	Create Users (human)
 */
@@ -65,6 +64,7 @@ function User(options){
 	this.power = options.power || "";
 	this.name = options.name || "";
 }
+<<<<<<< Updated upstream
 User.prototype = Object.create(Player.prototype);
 
 var mady = new User({
@@ -72,6 +72,13 @@ var mady = new User({
 	weapon: "ninja powers",
 	name: "Mady"
 });
+=======
+User.prototype = Object.create(Player.prototype)	;
+
+var jonathan = new User({"tools": "sword"});
+var skylar = new User({});
+var mady = new User({});
+>>>>>>> Stashed changes
 
 /* ------------------------------------------------
 	Create Computers (enemies)
@@ -120,16 +127,42 @@ $(document).on("click", ".play", function(e){
 
 $(document).on("click", ".attack", function(e){
 	e.preventDefault();
+<<<<<<< Updated upstream
 	// console.log(jake.health);
 	// console.log("Attack!");
 
 	// Attack method
 	user.attack(computer);
 	computer.attack(user);
+=======
+	console.log("Attack!");
+	var user = $(".user-select").val();
+	var computer = $(".computer-select").val();
+
+	jonathan.attack(jake);
+	jake.attack(jonathan);
+>>>>>>> Stashed changes
 
 	$(".human .health span").css({width: user.health+"%"});
 	$(".computer .health span").css({width: computer.health+"%"});
 
+<<<<<<< Updated upstream
+=======
+	if(jonathan.health <= 0 && jonathan.health < jake.health) {
+		$(".attack").addClass("hide");
+		$(".main-wrap").addClass("hide");
+		$(".you-lose").removeClass("hide");
+	}
+
+	if(jake.health <=0 && jake.health < jonathan.health) {
+		$(".attack").addClass("hide");
+		$(".main-wrap").addClass("hide");
+		$(".you-win").removeClass("hide");
+	}
+
+	//console.log(user,computer)
+	//user.attack(computer);
+>>>>>>> Stashed changes
 });
 
 
