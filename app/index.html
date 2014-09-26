@@ -23,28 +23,22 @@
   </head>
   <body>
 
-    <div class="hero-unit">
-      <h1>'Allo, 'Allo!</h1>
-      <p>You now have</p>
-      <ul>
-        <li>HTML5 Boilerplate</li>
-        <li>Normalize CSS</li>
+    <div class="main-wrap">
 
-        <li>Sass</li>
+        <div class="player">
+            <select name="" class="user"></select>
+            <a href="#" class="attack">Attack</a>
+        </div>
+        <div class="player">
+            <select name="" class="computer"></select>
 
+        </div>
 
-        <li>Modernizr</li>
-
-
-        <li>Bourbon & Neat</li>
-
-
-        <li>UnderscoreJS</li>
-
-      </ul>
-      <p>Don't forget to update your readme file!!</p>
     </div>
 
+    <script type="text/template" id="select-template">
+        <option value="<%= name %>"> <%= name %> </option>
+    </script>
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
     <script src="../bower_components/jquery/dist/jquery.js"></script>
@@ -54,6 +48,7 @@
 
         <!-- build:js scripts/main.js -->
         <script src="scripts/main.js"></script>
+        <script src="scripts/player.js"></script>
         <!-- endbuild -->
 </body>
 </html>
