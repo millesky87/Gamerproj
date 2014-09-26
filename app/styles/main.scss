@@ -3,6 +3,9 @@
 //$gutter: em(0);
 @import '../../bower_components/neat/app/assets/stylesheets/neat';
 
+//@import "variables";
+
+
 // Custom Styles
 body {
   background: #fafafa;
@@ -21,6 +24,7 @@ body {
   background:#CCC;
   min-height:300px;
   position: relative;
+  border-radius:3px;
 }
 
 select{
@@ -34,8 +38,26 @@ select{
   bottom:-70px;
   left:50%;
   transform: translate(-50%, -50%);
-  padding:10px;
+  padding:em(10px) em(30px);
   box-sizing: border-box;
   display: block;
   background: #999;
+}
+
+.health{
+  height:em(20px);
+  position:absolute;
+  background: red;
+  bottom:0;
+  width:100%;
+  overflow: hidden;
+  border-radius: 0 0 3px 3px;
+  span{
+    content:"";
+    height:em(20px);
+    background:green;
+    width:100%;
+    position:absolute;
+    transition:.3s;
+  }
 }

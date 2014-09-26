@@ -5,27 +5,30 @@
 
     describe('Player', function() {
         beforeEach(function() {
-            this.player = new Player();
+            this.a = new Player();
+            this.b = new Player();
+
         });
 
         it('should exist', function() {
-            expect(this.player).to.be.ok;
+            expect(this.a).to.be.ok;
         });
 
         describe("Attack", function() {
             beforeEach(function() {
-                this.player.attack;
+                this.a = new Player();
+                this.b = new Player();
             });
-            it('The player should have types', function() {
-                expect(this.player.attack).to.be.ok;
+            it('The player should have have an attack method', function() {
+                expect(this.a.attack).to.be.ok;
             });
         });
         describe("Health", function() {
             beforeEach(function() {
-                this.player.health;
+                this.a = new Player();
             });
             it('should have a heath of 100', function() {
-                expect(this.player.health).equal(100);
+                expect(this.a.health).equal(100);
             });
         });
     });

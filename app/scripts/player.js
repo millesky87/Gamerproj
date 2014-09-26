@@ -1,7 +1,7 @@
 
 var playerTypes = {
-	"users": ["Jake", "Mason"],
-	"computer": ["Jonathan", "Skylar", "Mady"]
+	"User": ["Jonathan", "Skylar", "Mady"],
+	"Computer": ["Jake", "Mason"]
 };
 
 /* ------------------------------------------------
@@ -10,12 +10,12 @@ var playerTypes = {
 
 userSelect = new Template({
   id: 'select-template',
-  where: 'user'
+  where: 'user-select'
 });
 
 computerSelect = new Template({
   id: 'select-template',
-  where: 'computer'
+  where: 'computer-select'
 });
 
 function displayPlayers(data, constructor){
@@ -24,10 +24,8 @@ function displayPlayers(data, constructor){
 	});
 }
 
-displayPlayers(playerTypes.users, userSelect);
-displayPlayers(playerTypes.computer, computerSelect);
-
-// ------------------------------------------------
+displayPlayers(playerTypes.User, userSelect);
+displayPlayers(playerTypes.Computer, computerSelect);
 
 
 /* ------------------------------------------------
@@ -41,7 +39,10 @@ function Player(){
 
 // Attack prototype
 Player.prototype.attack = function(attacked){
-	attacked.health = attacked.health - 10;
+	var hitPoints = Math.floor(Math.random()*10);
+	console.log(hitPoints);
+	attacked.health = attacked.health - hitPoints;
+
 };
 
 
@@ -52,9 +53,10 @@ Player.prototype.attack = function(attacked){
 function User(){
 	Player.apply(this, arguments);
 }
-User.prototype = Object.create(Player.prototype);
+User.prototype = Object.create(Player.prototype)	;
 
-var jonathan = new User();
+var jonathan = new User({"tools": "sword"});
+
 var skylar = new User();
 var mady = new User();
 
@@ -68,13 +70,36 @@ function Computer(){
 }
 Computer.prototype = Object.create(Player.prototype);
 
+
+//console.log(playerTypes["User"][0]);
+
+// _.each(playerTypes.User, function(type){
+// 	console.log(type);
+// 	type = new Computer();
+// })
+
+// Set Health
+$(".computer .health::after").width(jonathan.health);
+
+
 var jake = new Computer();
 var mason = new Computer();
-
 
 
 $(document).on("click", ".attack", function(e){
 	e.preventDefault();
 	console.log("Attack!");
+	var user = $(".user-select").val();
+	var computer = $(".computer-select").val();
+	
 	jonathan.attack(jake);
+
+	jake.attack(jonathan);
+
+	console.log(jake.health);
+	$(".human .health span").css({width: jonathan.health+"%"});
+	$(".computer .health span").css({width: jake.health+"%"});
+
+	//console.log(user,computer)
+	//user.attack(computer);
 });
