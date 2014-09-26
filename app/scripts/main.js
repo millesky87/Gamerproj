@@ -12,3 +12,8 @@ Template.prototype.render = function(data){
 };
 
 
+function Ring(){}
+
+Ring.prototype.render = function(data){
+	
+}
