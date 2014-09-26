@@ -39,6 +39,7 @@ function Player(options) {
   this.health = 100;
   this.autoTurn = false;
   this.id = 1;
+  this.name = ""
 }
 
 // Attack prototype
@@ -47,9 +48,9 @@ Player.prototype.attack = function(attacked) {
   //console.log(hitPoints);
   attacked.health = attacked.health - hitPoints;
   if (this instanceof User) {
-    $(".human .attack-history").append("<li>Attacked and took " + hitPoints + " health points from " + computer.name + "</li>");
+    $(".human .attack-history").html("<li>Attacked and took " + hitPoints + " health points from " + computer.name + "</li>");
   } else
-    $(".computer .attack-history").append("<li>Attacked and took " + hitPoints + " health points from " + user.name + "</li>");
+    $(".computer .attack-history").html("<li>Attacked and took " + hitPoints + " health points from " + user.name + "</li>");
 };
 
 
@@ -68,24 +69,56 @@ function User(options) {
 User.prototype = Object.create(Player.prototype);
 
 var mady = new User({
-  power: 200,
-  weapon: "ninja powers",
-  name: "Mady"
-});
+	name: "Mady",
+	power: 600,
+})
+
+var jonathan = new User({
+	name: "Jonathan",
+	power: 200,
+})
+
+var skylar = new User({
+	name: "Skylar",
+	power: 900,
+})
+// function Mady(options){
+// 	User.apply(this, arguments);
+// }
+// Mady.prototype = Object.create(User.prototype);
+
+// var mady = new Mady({
+//   power: 200,
+//   weapon: "ninja powers",
+//   name: "Mady"
+// });
+
+// var madyVamire = new Mady();
 
 /* ------------------------------------------------
 	Create Computers (enemies)
 */
 
-function Computer() {
+function Computer(options) {
   Player.apply(this, arguments);
   this.autoTurn = true;
+  this.name = options.name;
 }
 Computer.prototype = Object.create(Player.prototype);
 
 // var user = new User();
 // user.id = 231231;
-var computer = new Computer();
+//var computer = new Computer();
+
+var mason = new Computer({
+	name: "Mason",
+});
+var matt = new Computer({
+	name: "Matt",
+});
+var jake = new Computer({
+	name: "Jake",
+});
 
 //console.log(playerTypes["User"][0]);
 
@@ -103,14 +136,10 @@ $(document).on("click", ".play", function(e) {
   var userName = $(".user-select").val();
   var computerName = $(".computer-select").val();
 
-  user = new User();
-  user.name = userName;
-  computer = new Computer();
-  computer.name = computerName;
-
-  if (userName == "Mady") {
-    user = mady;
-  }
+  user = window[userName.toLowerCase()];
+  computer = window[computerName.toLowerCase()];
+  
+  console.log("User",user, "Computer",computer);
 
   $(".human p").html("<p>" + user.name + "</p>");
   $(".computer p").html("<p>" + computer.name + "</p>");
