@@ -16,6 +16,7 @@ body {
 .main-wrap{
   max-width: em(500px);
   margin-top: em(50px);
+  margin-bottom: em(100px);
   @include outer-container;
 }
 
@@ -29,19 +30,40 @@ body {
 
 select{
   display: block;
-  width:50%;
   margin:10px auto;
+  @include span-columns(2);
 }
 
+.button{  padding:em(10px) em(30px);
+  box-sizing: border-box;
+  display: block;
+  background: #999;
+  border-radius:4px;
+  color:#FFF;
+  text-decoration: none;
+  text-shadow: 0 1px 0 rgba(0,0,0,.5);
+  &:hover{
+    background:#666;
+  }
+
+}
+
+.choose-player{
+  @include span-columns(12);
+  margin-bottom:50px;
+  @include shift(3);
+
+}
+.play{
+  text-align: center;
+  width:20%;
+  @include span-columns(2);
+}
 .attack{
   position: absolute;
   bottom:-70px;
   left:50%;
   transform: translate(-50%, -50%);
-  padding:em(10px) em(30px);
-  box-sizing: border-box;
-  display: block;
-  background: #999;
 }
 
 .health{

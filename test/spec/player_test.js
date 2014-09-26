@@ -6,8 +6,6 @@
     describe('Player', function() {
         beforeEach(function() {
             this.a = new Player();
-            this.b = new Player();
-
         });
 
         it('should exist', function() {
@@ -15,20 +13,13 @@
         });
 
         describe("Attack", function() {
-            beforeEach(function() {
-                this.a = new Player();
-                this.b = new Player();
-            });
             it('The player should have have an attack method', function() {
                 expect(this.a.attack).to.be.ok;
             });
         });
         describe("Health", function() {
-            beforeEach(function() {
-                this.a = new Player();
-            });
             it('should have a heath of 100', function() {
-                expect(this.a.health).equal(100);
+                expect(this.a.health).to.equal(100);
             });
         });
     });
@@ -70,7 +61,5 @@
         });
 
     });
-
-
 
 })();
