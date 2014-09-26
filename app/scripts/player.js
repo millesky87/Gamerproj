@@ -138,7 +138,7 @@ $(document).on("click", ".play", function(e) {
 
   user = window[userName.toLowerCase()];
   computer = window[computerName.toLowerCase()];
-  
+
   console.log("User",user, "Computer",computer);
 
   $(".human p").html("<p>" + user.name + "</p>");
