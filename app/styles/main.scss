@@ -320,9 +320,9 @@ width: 9px; height: 9px; left: 427.03px; top: 281.59px;}
   position: absolute;
   top: 10px;
   z-index: 11;
-  -webkit-animation: bounce 2s infinite, slide 10s infinite;
-  -moz-animation: bounce 2s infinite, slide 10s infinite;
-  animation: bounce 2s infinite, slide 10s infinite;
+  -webkit-animation: bounce 2s infinite, slide2 10s infinite;
+  -moz-animation: bounce 2s infinite, slide2 10s infinite;
+  animation: bounce 2s infinite, slide2 10s infinite;
 }
 
 @-moz-keyframes bounce {
@@ -373,4 +373,41 @@ width: 9px; height: 9px; left: 427.03px; top: 281.59px;}
 	50% {left:300px;}
 	75% {}
 	100% {}
+}
+
+@-moz-keyframes slide2 {
+  0% {}
+  50% {left:300px;}
+  75% {}
+  100% {}
+}
+@-webkit-keyframes slide2 {
+  0% {}
+  50% {left:300px;}
+  75% {}
+  100% {}
+}
+@keyframes slide2 {
+  0% {}
+  50% {left:300px;}
+  75% {}
+  100% {}
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  10%, 30%, 50%, 70%, 90% {
+    transform: translate3d(-10px, 0, 0);
+  }
+
+  20%, 40%, 60%, 80% {
+    transform: translate3d(10px, 0, 0);
+  }
+}
+
+.shake {
+  animation-name: shake;
 }

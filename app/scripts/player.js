@@ -5,11 +5,11 @@
 var playerTypes = {
     "User": [{
         name: "Mady",
-        weapon: 'animalMimicry',
+        weapon: [{type:'animalMimicry', points:5}],
         power: 600
     }, {
         name: "Jonathan",
-        weapon: 'psychicBlast',
+        weapon: [{type:'psychicBlast', points:5}],
         power: 200
     }, {
         name: "Skylar",
@@ -86,6 +86,7 @@ function Player(options) {
     this.id = 1 || options.id;
     this.name = "" || options.name;
     this.voodooFactor = "100" || options.voodooFactor;
+    this.weapon = [{type:'sword', points:3}, {type: 'handslap', points: 2}]
 }
 
 // Attack prototype
@@ -106,7 +107,7 @@ Player.prototype.attack = function(attacked) {
 function User(options) {
     if (!options) options = {};
     Player.apply(this, arguments);
-    this.weapon = options.weapon || "";
+    this.weapon = _.union(options.weapon,this.weapon) || "";
     this.power = options.power || "";
     this.name = options.name || "";
 }
