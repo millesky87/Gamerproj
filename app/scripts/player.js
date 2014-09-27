@@ -1,184 +1,167 @@
+/* ------------------------------------------------
+    Player types and players
+*/
 var playerTypes = {
-    "User": ["Jonathan", "Skylar", "Mady"],
-    "Computer": ["Jake", "Mason", "Matt"]
-  },
-  user,
-  computer;
+    "User": [{
+        name: "Mady",
+        power: 600
+    }, {
+        name: "Jonathan",
+        power: 200
+    }, {
+        name: "Skylar",
+        power: 900
+    }, ],
+    "Computer": [{
+        name: "Mason",
+        weapon: "intellectualStare",
+        power: 1000
+    }, {
+        name: "Jake",
+        weapon: "deathWishCoffee",
+        power: 800
+    }, {
+        name: "Matt",
+        weapon: "zenKoan",
+        power: 600
+    }]
+},
+    user,
+    computer;
+
+
+function buildConstructors(playerType) {
+    _.each(playerTypes[playerType], function(player) {
+        if (playerType == "User")
+            window[player.name.toLowerCase()] = new User(player);
+        else if (playerType == "Computer")
+            window[player.name.toLowerCase()] = new Computer(player);
+    });
+}
+
+function displayPlayers(data, constructor) {
+    _.chain(data).each(function(type) {
+        console.log(type.name);
+        constructor.render({
+            "name": type.name
+        });
+    });
+}
 
 /* ------------------------------------------------
-	Add player choices to DOM
+    Add player choices to DOM
 */
 
 userSelect = new Template({
-  id: 'select-template',
-  where: 'user-select'
+    id: 'select-template',
+    where: 'user-select'
 });
 
 computerSelect = new Template({
-  id: 'select-template',
-  where: 'computer-select'
+    id: 'select-template',
+    where: 'computer-select'
 });
-
-function displayPlayers(data, constructor) {
-  _.chain(data).each(function(type) {
-    constructor.render({
-      "name": type
-    });
-  });
-}
 
 displayPlayers(playerTypes.User, userSelect);
 displayPlayers(playerTypes.Computer, computerSelect);
 
 
 /* ------------------------------------------------
-	Create Players
+    Create Players
 */
 
 function Player(options) {
-  this.health = 100;
-  this.autoTurn = false;
-  this.id = 1;
-  this.name = "";
+    options = options || {};
+    this.health = 100 || options.health;
+    this.id = 1 || options.id;
+    this.name = "" || options.name;
+    this.voodooFactor = "100" || options.voodooFactor;
 }
 
 // Attack prototype
 Player.prototype.attack = function(attacked) {
-  var hitPoints = Math.floor(Math.random() * 10);
-  //console.log(hitPoints);
-  attacked.health = attacked.health - hitPoints;
-  if (this instanceof User) {
-    $(".human .attack-history").html("<li>Attacked and took " + hitPoints + " health points from " + computer.name + "</li>");
-  } else
-    $(".computer .attack-history").html("<li>Attacked and took " + hitPoints + " health points from " + user.name + "</li>");
+    var hitPoints = Math.floor(Math.random() * 10);
+    attacked.health = attacked.health - hitPoints;
+    if (this instanceof User) {
+        $(".human .attack-history").html("<li>Attacked and took " + hitPoints + " health points from " + computer.name + "</li>");
+    } else
+        $(".computer .attack-history").html("<li>Attacked and took " + hitPoints + " health points from " + user.name + "</li>");
 };
 
 
 /* ------------------------------------------------
-	Create Users (human)
+    Create Users (human)
 */
 
 function User(options) {
-  if (!options) options = {};
-  console.log("Options:", options);
-  Player.apply(this, arguments);
-  this.weapon = options.weapon || "";
-  this.power = options.power || "";
-  this.name = options.name || "";
+    if (!options) options = {};
+    Player.apply(this, arguments);
+    this.weapon = options.weapon || "";
+    this.power = options.power || "";
+    this.name = options.name || "";
 }
 User.prototype = Object.create(Player.prototype);
 
-var mady = new User({
-  name: "Mady",
-  power: 600,
-});
+buildConstructors("User");
 
-var jonathan = new User({
-  name: "Jonathan",
-  power: 200,
-});
-
-var skylar = new User({
-  name: "Skylar",
-  power: 900,
-});
-// function Mady(options){
-// 	User.apply(this, arguments);
-// }
-// Mady.prototype = Object.create(User.prototype);
-
-// var mady = new Mady({
-//   power: 200,
-//   weapon: "ninja powers",
-//   name: "Mady"
-// });
-
-// var madyVamire = new Mady();
 
 /* ------------------------------------------------
-	Create Computers (enemies)
+    Create Computers (enemies)
 */
 
 function Computer(options) {
-  if (!options) options = {};
-  console.log("Options:", options);
-  Player.apply(this, arguments);
-  this.weapon = options.weapon || "";
-  this.power = options.power || "";
-  this.name = options.name || "";
+    if (!options) options = {};
+    Player.apply(this, arguments);
+    this.weapon = options.weapon || "";
+    this.power = options.power || "";
+    this.name = options.name || "";
 }
 Computer.prototype = Object.create(Player.prototype);
 
-// var user = new User();
-// user.id = 231231;
-//var computer = new Computer();
+buildConstructors("Computer");
 
-var mason = new Computer({
-  name: "Mason",
-  weapon: "crazyStare"
-});
-var matt = new Computer({
-  name: "Matt",
-  weapon: "zenKoan"
-});
-var jake = new Computer({
-  name: "Jake",
-  weapon: "deathWishCoffee"
-});
+/* ------------------------------------------------
+  Click Events 
+*/
 
-//console.log(playerTypes["User"][0]);
-
-// _.each(playerTypes.User, function(type){
-// 	console.log(type);
-// 	type = new Computer();
-// })
-
-// Set Health
-//$(".computer .health::after").width(jonathan.health);
-
-
+// Play
 $(document).on("click", ".play", function(e) {
-  e.preventDefault();
-  var userName = $(".user-select").val();
-  var computerName = $(".computer-select").val();
+    e.preventDefault();
+    var userName = $(".user-select").val();
+    var computerName = $(".computer-select").val();
 
-  user = window[userName.toLowerCase()];
-  computer = window[computerName.toLowerCase()];
+    user = window[userName.toLowerCase()];
+    computer = window[computerName.toLowerCase()];
 
-  console.log("User", user, "Computer", computer);
-
-  $(".human p").html("<p>" + user.name + "</p>");
-  $(".computer p").html("<p>" + computer.name + "</p>");
-  console.log("User: ", user, "Computer: ", computer);
+    $(".human p").html("<p>" + user.name + "</p>");
+    $(".computer p").html("<p>" + computer.name + "</p>");
 
 });
 
+// Attack method
 $(document).on("click", ".attack", function(e) {
-  e.preventDefault();
-  // console.log(jake.health);
-  // console.log("Attack!");
+    e.preventDefault();
 
-  // Attack method
-  user.attack(computer);
-  computer.attack(user);
+    user.attack(computer);
+    computer.attack(user);
 
-  if (user.health <= 0 && user.health < computer.health) {
-    $(".attack").addClass("hide");
-    $(".main-wrap").addClass("hide");
-    $(".you-lose").removeClass("hide");
-  }
+    if (user.health <= 0 && user.health < computer.health) {
+        $(".attack").addClass("hide");
+        $(".main-wrap").addClass("hide");
+        $(".you-lose").removeClass("hide");
+    }
 
-  if (computer.health <= 0 && computer.health < user.health) {
-    $(".attack").addClass("hide");
-    $(".main-wrap").addClass("hide");
-    $(".you-win").removeClass("hide");
-  }
+    if (computer.health <= 0 && computer.health < user.health) {
+        $(".attack").addClass("hide");
+        $(".main-wrap").addClass("hide");
+        $(".you-win").removeClass("hide");
+    }
 
-  $(".human .health span").css({
-    width: user.health + "%"
-  });
-  $(".computer .health span").css({
-    width: computer.health + "%"
-  });
+    $(".human .health span").css({
+        width: user.health + "%"
+    });
+    $(".computer .health span").css({
+        width: computer.health + "%"
+    });
 
 });
