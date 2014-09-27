@@ -1,5 +1,11 @@
 //console.log('The Iron Yard Rocks');
 
+// $(function(){
+// 		setTimeout(function(){
+// 		$(".letter").css({position: 'absolute'});
+// 	},3000);
+// });
+
 function Template(options){
 	this.id = options.id;
 	this.where = options.where;
@@ -16,4 +22,10 @@ function Ring(){}
 
 Ring.prototype.render = function(data){
 
-}
+};
+
+$("#play").on('click', function(e){
+	$(".main-wrap").removeClass("hide");
+	$("#home").addClass("hide");
+	e.preventDefault();
+});
