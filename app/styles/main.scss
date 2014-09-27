@@ -28,16 +28,12 @@ body {
   width: 500px;
 }
 
-.load {
-
-};
-
-#title {
-
-}
-
 #title-image {
   border-radius: rem(160);
+  -webkit-animation-name: rotate;
+  -webkit-animation-duration: 5s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: linear;
 }
 
 .main-wrap{
@@ -165,6 +161,12 @@ transition: all .1s ease;
     position:absolute;
     transition:.3s;
   }
+}
+
+.game-over {
+  margin: 250px auto;
+  text-align: center;
+  width: 500px;
 }
 
 .hide {
@@ -415,6 +417,11 @@ width: 9px; height: 9px; left: 427.03px; top: 281.59px;}
   }
 }
 
-.shake {
-  animation-name: shake;
+@-webkit-keyframes rotate {
+  from {
+    -webkit-transform: rotateY(0deg);
+  }
+  to {
+    -webkit-transform: rotateY(360deg);
+  }
 }
