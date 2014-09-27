@@ -5,12 +5,15 @@
 var playerTypes = {
     "User": [{
         name: "Mady",
+        weapon: 'animalMimicry',
         power: 600
     }, {
         name: "Jonathan",
+        weapon: 'psychicBlast',
         power: 200
     }, {
         name: "Skylar",
+        weapon: 'biologicalManipulation',
         power: 900
     }, ],
     "Computer": [{
@@ -148,6 +151,9 @@ $(document).on("click", ".play", function(e) {
 
     $(".human p").html("<p>" + user.name + "</p>");
     $(".computer p").html("<p>" + computer.name + "</p>");
+
+    $(".main-wrap").removeClass("hide");
+    $("#home").addClass("hide");
 });
 
 
