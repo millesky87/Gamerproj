@@ -1,6 +1,7 @@
 /* ------------------------------------------------
     Player types and players
 */
+
 var playerTypes = {
     "User": [{
         name: "Mady",
@@ -69,7 +70,7 @@ userSelect = new Template({
 });
 
 displayPlayers(playerTypes.User, userSelect);
-displayPlayers(playerTypes.Computer, computerSelect);
+// displayPlayers(playerTypes.Computer, computerSelect);
 
 
 /* ------------------------------------------------
@@ -135,7 +136,12 @@ buildConstructors("Computer");
 $(document).on("click", ".play", function(e) {
     e.preventDefault();
     var userName = $(".user-select").val();
-    var computerName = $(".computer-select").val();
+    // var computerName = $(".computer-select").val();
+    var computerName = playerTypes.Computer.map(function(player){
+      return(player.name)
+    });
+
+    var computerName = computerName[Math.floor(Math.random() * computerName.length)];
 
     user = window[userName.toLowerCase()];
     computer = window[computerName.toLowerCase()];
@@ -143,13 +149,6 @@ $(document).on("click", ".play", function(e) {
     $(".human p").html("<p>" + user.name + "</p>");
     $(".computer p").html("<p>" + computer.name + "</p>");
 });
-
-$(document).on("click", ".play", function(e) {
-  e.preventDefault();
-  var userName = $(".user-select").val();
-  // var computerName = $(".computer-select").val();
-  var computerName = ['Mason', 'Jake', 'Matt']
-  var computerName = computerName[Math.floor(Math.random() * computerName.length)];
 
 
 // Attack method
@@ -159,6 +158,7 @@ $(document).on("click", ".attack", function(e) {
 
     user.attack(computer);
     computer.attack(user);
+
 
     if (user.health <= 0 && user.health < computer.health) {
         $(".attack").addClass("hide");
