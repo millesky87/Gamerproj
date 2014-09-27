@@ -68,11 +68,6 @@ userSelect = new Template({
     where: 'user-select'
 });
 
-computerSelect = new Template({
-    id: 'select-template',
-    where: 'computer-select'
-});
-
 displayPlayers(playerTypes.User, userSelect);
 displayPlayers(playerTypes.Computer, computerSelect);
 
@@ -147,12 +142,20 @@ $(document).on("click", ".play", function(e) {
 
     $(".human p").html("<p>" + user.name + "</p>");
     $(".computer p").html("<p>" + computer.name + "</p>");
-
 });
+
+$(document).on("click", ".play", function(e) {
+  e.preventDefault();
+  var userName = $(".user-select").val();
+  // var computerName = $(".computer-select").val();
+  var computerName = ['Mason', 'Jake', 'Matt']
+  var computerName = computerName[Math.floor(Math.random() * computerName.length)];
+
 
 // Attack method
 $(document).on("click", ".attack", function(e) {
     e.preventDefault();
+
 
     user.attack(computer);
     computer.attack(user);
