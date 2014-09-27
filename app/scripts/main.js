@@ -3,7 +3,7 @@
 function Template(options){
 	this.id = options.id;
 	this.where = options.where;
-	this.method = options.method || "append"; 
+	this.method = options.method || "append";
 }
 
 Template.prototype.render = function(data){
@@ -15,5 +15,5 @@ Template.prototype.render = function(data){
 function Ring(){}
 
 Ring.prototype.render = function(data){
-	
+
 }
