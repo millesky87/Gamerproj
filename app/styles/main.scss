@@ -28,14 +28,6 @@ body {
   width: 500px;
 }
 
-#title-image {
-  border-radius: rem(160);
-  -webkit-animation-name: rotate;
-  -webkit-animation-duration: 5s;
-  -webkit-animation-iteration-count: infinite;
-  -webkit-animation-timing-function: linear;
-}
-
 .main-wrap{
   max-width: em(500px);
   margin-top: em(50px);
