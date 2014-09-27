@@ -41,8 +41,8 @@
 
   </div>
 
-  <div class='you-lose hide'>YOU LOSE</div>
-  <div class='you-win hide'>YOU WIN</div>
+  <div class='you-lose game-over hide'>YOU LOSE</div>
+  <div class='you-win game-over hide'>YOU WIN</div>
 
   <div class="main-wrap hide">
 
@@ -58,7 +58,17 @@
       <a href="#" class="button attack">Attack</a>
       <a href="#" class="button magic">Use Magic</a>
       <ul class="attack-history"></ul>
+
+      <ul class="human-weapons"></ul>
+
+      <script type="text/template" id="weapon-options">
+        <li><a href="" class="button" points="<%= points %>"> <%= weapon %></a></li>
+      </script>
     </div>
+
+
+
+
     <div class="computer player">
       <p></p>
       <script id='computer-name'type="text/template">

@@ -5,28 +5,28 @@
 var playerTypes = {
     "User": [{
         name: "Mady",
-        weapon: [{type:'animalMimicry', points:5}],
+        weapons: [{type:'animalMimicry', points:5}],
         power: 600
     }, {
         name: "Jonathan",
-        weapon: [{type:'psychicBlast', points:5}],
+        weapons: [{type:'psychicBlast', points:5}],
         power: 200
     }, {
         name: "Skylar",
-        weapon: [{type:'biologicalManipulation', points:5}],
+        weapons: [{type:'biologicalManipulation', points:5}],
         power: 900
     }, ],
     "Computer": [{
         name: "Mason",
-        weapon: [{type:'intellectualStare', points:5}],
+        weapons: [{type:'intellectualStare', points:5}],
         power: 1000
     }, {
         name: "Jake",
-        weapon: [{type:'deathWishCoffee', points:5}],
+        weapons: [{type:'deathWishCoffee', points:5}],
         power: 800
     }, {
         name: "Matt",
-        weapon: [{type:'zenKoan', points:5}],
+        weapons: [{type:'zenKoan', points:5}],
         power: 600
     }]
 },
@@ -86,7 +86,7 @@ function Player(options) {
     this.id = 1 || options.id;
     this.name = "" || options.name;
     this.voodooFactor = "100" || options.voodooFactor;
-    this.weapon = [{type:'sword', points:3}, {type: 'handslap', points: 2}]
+    this.weapons = [{type:'sword', points:3}, {type: 'handslap', points: 2}]
 }
 
 // Attack prototype
@@ -107,7 +107,7 @@ Player.prototype.attack = function(attacked) {
 function User(options) {
     if (!options) options = {};
     Player.apply(this, arguments);
-    this.weapon = _.union(options.weapon,this.weapon) || "";
+    this.weapons = _.union(options.weapons,this.weapons) || "";
     this.power = options.power || "";
     this.name = options.name || "";
 }
@@ -123,7 +123,7 @@ buildConstructors("User");
 function Computer(options) {
     if (!options) options = {};
     Player.apply(this, arguments);
-    this.weapon = _.union(options.weapon,this.weapon) || "";
+    this.weapons = _.union(options.weapons,this.weapons) || "";
     this.power = options.power || "";
     this.name = options.name || "";
 }
@@ -135,6 +135,27 @@ buildConstructors("Computer");
 /* ------------------------------------------------
   Click Events
 */
+
+var renderWeapons = new Template({
+  id: "weapon-options",
+  where: "human-weapons"
+});
+
+function addWeapons(user){
+
+  console.log("User:",user);
+
+  _.each(user.weapons, function(weapon){
+    renderWeapons.render({
+      weapon: weapon.type,
+      points: weapon.points
+    })
+  })
+
+};
+
+
+
 
 // Play
 $(document).on("click", ".play", function(e) {
@@ -165,9 +186,10 @@ $(document).on("click", ".play", function(e) {
       "name":computerName
     });
 
-
     user = window[userName.toLowerCase()];
     computer = window[computerName.toLowerCase()];
+
+    addWeapons(user);
 
     $(".human p").html("<p>" + user.name + "</p>");
     $(".computer p").html("<p>" + computer.name + "</p>");
