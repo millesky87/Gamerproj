@@ -25,7 +25,8 @@
 
 <body>
 
-  <div class="multiplayer">
+  <div class="main-wrap">
+  <div class="multiplayer-wrap">
     
     <input class="name">
     <a href="" class="create">Create Game</a>
@@ -35,13 +36,15 @@
   <ul class="game-list">  
     <script type="text/template" id="gameList-template">
       <li>
-      <a href="#"> <%= id %></a> 
-      <input type="text" class="player2" placeholder="Player 2 Name">
-      <a href="" class="join" gameID = <%= id %> > join game </a>
+      
+      <p><%= id %></p> 
+      <p>Fight with <%= player1 %> </p>
+      <p><input type="text" class="player2" placeholder="Player 2 Name"></p>
+      <a href="" class="join button" gameID = <%= id %> > join game </a>
       </li>
     </script>
   </ul>
-
+</div>
     
   </div>
   <!-- build:js scripts/vendor.js -->

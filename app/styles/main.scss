@@ -37,10 +37,12 @@ body {
 }
 
 .main-wrap{
+  @extend .videoGameFont;
   max-width: em(500px);
   margin-top: em(50px);
   margin-bottom: em(100px);
   @include outer-container;
+
 }
 
 .player{
@@ -237,5 +239,3 @@ width: 36px; height: 24px; left: 360.57px; top: 66.7px;}
 #title .l13 {-moz-transform: rotate(0.78rad);-webkit-transform: rotate(0.78rad);-o-transform:
 rotate(0.78rad);-ms-transform: rotate(0.78rad); transform: rotate(0.78rad);
 width: 19px; height: 24px; left: 394.2px; top: 87.21px;}
-
-@import 'animation'

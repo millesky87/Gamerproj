@@ -55,12 +55,12 @@ $(document).on("click", ".create", function(e) {
         "name": name
     });
     createGame(gameInfo);
-})
+});
 
 
 
 $(document).on("click", ".join", function(e) {
-	console.log("join")
+	console.log("join");
     e.preventDefault();
     var gameID = $(this).attr("gameID");
     joinGame(gameID, name);
@@ -71,8 +71,8 @@ function deleteGame() {
 }
 
 function joinGame(gameID, name) {
-    data = {};
-    data.players["name"].push(name);
+	var data = {};
+    data["players"].push({"name":name});
     $.ajax({
         url: url + gameID,
         data: data,
@@ -115,7 +115,7 @@ function deleteAllGames() {
     }).done(function(data) {
         _.each(data, function(game) {
             $.ajax({
-                url: url + "/" + game._id,
+                url: url + game._id,
                 type: "DELETE",
             }).done(function() {
                 console.log("Games Deleted");
