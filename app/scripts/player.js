@@ -222,6 +222,19 @@ $(document).on("click", ".attack", function(e) {
 
     updateHealthBar();
 
+    $('#human-image').toggleClass('human-attack');
+    $('#computer-image').toggleClass('computer-attack');
+    $('#human-image').toggleClass('human-idle');
+    $('#computer-image').toggleClass('computer-idle')
+
+
+    setTimeout(function(){
+    $('#human-image').toggleClass('human-attack');
+    $('#computer-image').toggleClass('computer-attack')
+    $('#human-image').toggleClass('human-idle');
+    $('#computer-image').toggleClass('computer-idle')
+  }, 1000);
+
 });
 
 // Magic button

@@ -6,7 +6,7 @@
   -webkit-animation-timing-function: linear;
 }
 
-#computer-image {
+.computer-idle {
   width: 140px;
   height: 140px;
   position: fixed;
@@ -16,14 +16,14 @@
         inset -2px -1px 40px rgba(0,0,0,0.4),
         0 0 1px #000;
   position: absolute;
-  top: 10px;
+  bottom: 10px;
   z-index: 11;
-  -webkit-animation: bounce 2s infinite, slide 10s infinite;
-  -moz-animation: bounce 2s infinite, slide 10s infinite;
-  animation: bounce 2s infinite, slide 10s infinite;
+  -webkit-animation: bounce1 2s infinite, slide1 10s infinite;
+  -moz-animation: bounce1 2s infinite, slide1 10s infinite;
+  animation: bounce1 2s infinite, slide1 10s infinite;
 }
 
-#human-image {
+.computer-attack {
   width: 140px;
   height: 140px;
   position: fixed;
@@ -33,95 +33,227 @@
         inset -2px -1px 40px rgba(0,0,0,0.4),
         0 0 1px #000;
   position: absolute;
-  top: 10px;
+  bottom: 10px;
   z-index: 11;
-  -webkit-animation: bounce 2s infinite, slide2 10s infinite;
-  -moz-animation: bounce 2s infinite, slide2 10s infinite;
-  animation: bounce 2s infinite, slide2 10s infinite;
+  -webkit-animation: attack1 1s infinite;
+  -moz-animation: attack1 1s infinite;
+  animation: attack1 1s infinite;
 }
 
-@-moz-keyframes bounce {
-  0% {top: 0;}
-  40% {}
-  50% {top: 240px;
-    /* height: 140px; */}
-  55% {top: 260px; /* height: 120px; */}
-  65% {top: 220px; /* height: 140px;  */}
-  95% {top: 0;}
-  100% {top: 0;}
-}
-@-webkit-keyframes bounce {
-  0% {top: 0;}
-  40% {}
-  50% {top: 240px;
-    /* height: 140px; */}
-  55% {top: 260px; /* height: 120px; */}
-  65% {top: 220px; /* height: 140px; */ }
-  95% {top: 0;}
-  100% {top: 0;}
-}
-@keyframes bounce {
-  0% {top: 0;}
-  40% {}
-  50% {top: 240px;
-    /* height: 140px; */}
-  55% {top: 260px; /* height: 120px; */}
-  65% {top: 220px; /* height: 140px;  */}
-  95% {top: 0;}
-  100% {top: 0;}
+.human-idle {
+  width: 140px;
+  height: 140px;
+  position: fixed;
+  left:300px;
+  border-radius: 70px;
+  box-shadow: inset 0 -5px 15px rgba(255,120,255,0.4),
+        inset -2px -1px 40px rgba(0,0,0,0.4),
+        0 0 1px #000;
+  position: absolute;
+  bottom: 10px;
+  z-index: 11;
+  -webkit-animation: bounce2 2s infinite, slide2 10s infinite;
+  -moz-animation: bounce2 2s infinite, slide2 10s infinite;
+  animation: bounce2 2s infinite, slide2 10s infinite;
 }
 
-@-moz-keyframes slide {
+.human-attack {
+  width: 140px;
+  height: 140px;
+  position: fixed;
+  left:300px;
+  border-radius: 70px;
+  box-shadow: inset 0 -5px 15px rgba(255,120,255,0.4),
+        inset -2px -1px 40px rgba(0,0,0,0.4),
+        0 0 1px #000;
+  position: absolute;
+  bottom: 10px;
+  z-index: 11;
+  -webkit-animation: attack2 1s infinite;
+  -moz-animation: attack2 1s infinite;
+  animation: attack2 1s infinite;
+}
+
+@-moz-keyframes bounce1 {
+  0% {bottom: 0;}
+  40% {}
+  50% {bottom: 20px;
+    /* height: 140px; */}
+  55% {bottom: 20px; /* height: 120px; */}
+  65% {bottom: 20px; /* height: 140px;  */}
+  95% {bottom: 0;}
+  100% {bottom: 0;}
+}
+@-webkit-keyframes bounce1 {
+  0% {bottom: 0;}
+  40% {}
+  50% {bottom: 20px;
+    /* height: 140px; */}
+  55% {bottom: 20px; /* height: 120px; */}
+  65% {bottom: 20px; /* height: 140px; */ }
+  95% {bottom: 0;}
+  100% {bottom: 0;}
+}
+@keyframes bounce1 {
+  0% {bottom: 0;}
+  40% {}
+  50% {bottom: 20px;
+    /* height: 140px; */}
+  55% {bottom: 20px; /* height: 120px; */}
+  65% {bottom: 20px; /* height: 140px;  */}
+  95% {bottom: 0;}
+  100% {bottom: 0;}
+}
+
+@-moz-keyframes slide1 {
   0% {}
   50% {left:300px;}
   75% {}
   100% {}
 }
-@-webkit-keyframes slide {
+@-webkit-keyframes slide1 {
   0% {}
   50% {left:300px;}
   75% {}
   100% {}
 }
-@keyframes slide {
+@keyframes slide1 {
   0% {}
   50% {left:300px;}
   75% {}
   100% {}
+}
+
+@-moz-keyframes bounce2 {
+  0% {bottom: 0;}
+  40% {}
+  50% {bottom: 20px;
+    /* height: 140px; */}
+  55% {bottom: 20px; /* height: 120px; */}
+  65% {bottom: 20px; /* height: 140px;  */}
+  95% {bottom: 0;}
+  100% {bottom: 0;}
+}
+@-webkit-keyframes bounce2 {
+  0% {bottom: 0;}
+  40% {}
+  50% {bottom: 20px;
+    /* height: 140px; */}
+  55% {bottom: 20px; /* height: 120px; */}
+  65% {bottom: 20px; /* height: 140px; */ }
+  95% {bottom: 0;}
+  100% {bottom: 0;}
+}
+@keyframes bounce2 {
+  0% {bottom: 0;}
+  40% {}
+  50% {bottom: 20px;
+    /* height: 140px; */}
+  55% {bottom: 20px; /* height: 120px; */}
+  65% {bottom: 20px; /* height: 140px;  */}
+  95% {bottom: 0;}
+  100% {bottom: 0;}
 }
 
 @-moz-keyframes slide2 {
   0% {}
-  50% {left:300px;}
+  50% {left:50px;}
   75% {}
   100% {}
 }
 @-webkit-keyframes slide2 {
   0% {}
-  50% {left:300px;}
+  50% {left:50px;}
   75% {}
   100% {}
 }
 @keyframes slide2 {
   0% {}
-  50% {left:300px;}
+  50% {left:50px;}
   75% {}
   100% {}
 }
 
-@keyframes shake {
-  0%, 100% {
-    transform: translate3d(0, 0, 0);
-  }
-
-  10%, 30%, 50%, 70%, 90% {
-    transform: translate3d(-10px, 0, 0);
-  }
-
-  20%, 40%, 60%, 80% {
-    transform: translate3d(10px, 0, 0);
-  }
+@-moz-keyframes attack1 {
+  0% {left:-15px; transform: translate3d(0, 0, 0);}
+  10%{left:30px; transform: translate3d(-10px, 0, 0);}
+  20%{left:45px; transform: translate3d(10px, 0, 0);}
+  30{left:60px; transform: translate3d(-10px, 0, 0);}
+  40%{left:75px; transform: translate3d(10px, 0, 0);}
+  50% {left:90px; transform: translate3d(-10px, 0, 0);}
+  60%{left:105px; transform: translate3d(10px, 0, 0);}
+  70% {left:120px; transform: translate3d(-10px, 0, 0);}
+  80%{left:135px; transform: translate3d(10px, 0, 0);}
+  90%{left:150px; transform: translate3d(-10px, 0, 0);}
+  100%{left:165px; transform: translate3d(0, 0, 0);}
 }
+@-webkit-keyframes attack1 {
+  0% {left:-15px; transform: translate3d(0, 0, 0);}
+  10%{left:30px; transform: translate3d(-10px, 0, 0);}
+  20%{left:45px; transform: translate3d(10px, 0, 0);}
+  30{left:60px; transform: translate3d(-10px, 0, 0);}
+  40%{left:75px; transform: translate3d(10px, 0, 0);}
+  50% {left:90px; transform: translate3d(-10px, 0, 0);}
+  60%{left:105px; transform: translate3d(10px, 0, 0);}
+  70% {left:120px; transform: translate3d(-10px, 0, 0);}
+  80%{left:135px; transform: translate3d(10px, 0, 0);}
+  90%{left:150px; transform: translate3d(-10px, 0, 0);}
+  100%{left:165px; transform: translate3d(0, 0, 0);}
+}
+@keyframes attack1 {
+  0% {left:-15px; transform: translate3d(0, 0, 0);}
+  10%{left:30px; transform: translate3d(-10px, 0, 0);}
+  20%{left:45px; transform: translate3d(10px, 0, 0);}
+  30{left:60px; transform: translate3d(-10px, 0, 0);}
+  40%{left:75px; transform: translate3d(10px, 0, 0);}
+  50% {left:90px; transform: translate3d(-10px, 0, 0);}
+  60%{left:105px; transform: translate3d(10px, 0, 0);}
+  70% {left:120px; transform: translate3d(-10px, 0, 0);}
+  80%{left:135px; transform: translate3d(10px, 0, 0);}
+  90%{left:150px; transform: translate3d(-10px, 0, 0);}
+  100%{left:165px; transform: translate3d(0, 0, 0);}
+}
+
+@-moz-keyframes attack2 {
+  0% {left:400px; transform: translate3d(0, 0, 0);}
+  10%{left:385px; transform: translate3d(-10px, 0, 0);}
+  20%{left:370px; transform: translate3d(10px, 0, 0);}
+  30{left:355px; transform: translate3d(-10px, 0, 0);}
+  40%{left:340px; transform: translate3d(10px, 0, 0);}
+  50% {left:325px; transform: translate3d(-10px, 0, 0);}
+  60%{left:310px; transform: translate3d(10px, 0, 0);}
+  70% {left:295px; transform: translate3d(-10px, 0, 0);}
+  80%{left:280px; transform: translate3d(10px, 0, 0);}
+  90%{left:265px; transform: translate3d(-10px, 0, 0);}
+  100%{left:250px; transform: translate3d(0, 0, 0);}
+}
+@-webkit-keyframes attack2 {
+  0% {left:400px; transform: translate3d(0, 0, 0);}
+  10%{left:385px; transform: translate3d(-10px, 0, 0);}
+  20%{left:370px; transform: translate3d(10px, 0, 0);}
+  30{left:355px; transform: translate3d(-10px, 0, 0);}
+  40%{left:340px; transform: translate3d(10px, 0, 0);}
+  50% {left:325px; transform: translate3d(-10px, 0, 0);}
+  60%{left:310px; transform: translate3d(10px, 0, 0);}
+  70% {left:295px; transform: translate3d(-10px, 0, 0);}
+  80%{left:280px; transform: translate3d(10px, 0, 0);}
+  90%{left:265px; transform: translate3d(-10px, 0, 0);}
+  100%{left:250px; transform: translate3d(0, 0, 0);}
+}
+@keyframes attack2 {
+  0% {left:400px; transform: translate3d(0, 0, 0);}
+  10%{left:385px; transform: translate3d(-10px, 0, 0);}
+  20%{left:370px; transform: translate3d(10px, 0, 0);}
+  30{left:355px; transform: translate3d(-10px, 0, 0);}
+  40%{left:340px; transform: translate3d(10px, 0, 0);}
+  50% {left:325px; transform: translate3d(-10px, 0, 0);}
+  60%{left:310px; transform: translate3d(10px, 0, 0);}
+  70% {left:295px; transform: translate3d(-10px, 0, 0);}
+  80%{left:280px; transform: translate3d(10px, 0, 0);}
+  90%{left:265px; transform: translate3d(-10px, 0, 0);}
+  100%{left:250px; transform: translate3d(0, 0, 0);}
+}
+
 
 @-webkit-keyframes rotate {
   from {
