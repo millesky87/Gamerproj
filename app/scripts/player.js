@@ -41,12 +41,23 @@ function buildConstructors(playerType) {
 
 function displayPlayers(data, constructor) {
     _.chain(data).each(function(type) {
-        console.log(type.name);
         constructor.render({
             "name": type.name
         });
     });
 }
+
+function updateHealthBar(){
+
+    $(".human .health span").css({
+        width: user.health + "%"
+    });
+    $(".computer .health span").css({
+        width: computer.health + "%"
+    });
+
+}
+
 
 /* ------------------------------------------------
     Add player choices to DOM
@@ -120,8 +131,9 @@ Computer.prototype = Object.create(Player.prototype);
 
 buildConstructors("Computer");
 
+
 /* ------------------------------------------------
-  Click Events 
+  Click Events
 */
 
 // Play
@@ -157,11 +169,22 @@ $(document).on("click", ".attack", function(e) {
         $(".you-win").removeClass("hide");
     }
 
-    $(".human .health span").css({
-        width: user.health + "%"
-    });
-    $(".computer .health span").css({
-        width: computer.health + "%"
-    });
+    updateHealthBar();
 
+});
+
+// Magic button
+$(document).on("click", ".magic", function(e) {
+    e.preventDefault();
+    var magicAffectTime = 5,
+        i = 0,
+        magicInterval;
+    magicInterval = setInterval(function(){
+            console.log("Using magic - reduction", computer);
+            computer.health = computer.health - 5;
+            updateHealthBar();
+            if (++i === magicAffectTime) {
+                window.clearInterval(magicInterval);
+            }
+        },2000);
 });
