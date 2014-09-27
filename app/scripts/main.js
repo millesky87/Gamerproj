@@ -18,12 +18,6 @@ Template.prototype.render = function(data){
 };
 
 
-function Ring(){}
-
-Ring.prototype.render = function(data){
-
-};
-
 $("#play").on('click', function(e){
 	$(".main-wrap").removeClass("hide");
 	$("#home").addClass("hide");

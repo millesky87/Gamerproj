@@ -1,6 +1,7 @@
 /* ------------------------------------------------
     Player types and players
 */
+
 var playerTypes = {
     "User": [{
         name: "Mady",
@@ -68,13 +69,8 @@ userSelect = new Template({
     where: 'user-select'
 });
 
-computerSelect = new Template({
-    id: 'select-template',
-    where: 'computer-select'
-});
-
 displayPlayers(playerTypes.User, userSelect);
-displayPlayers(playerTypes.Computer, computerSelect);
+// displayPlayers(playerTypes.Computer, computerSelect);
 
 
 /* ------------------------------------------------
@@ -140,22 +136,29 @@ buildConstructors("Computer");
 $(document).on("click", ".play", function(e) {
     e.preventDefault();
     var userName = $(".user-select").val();
-    var computerName = $(".computer-select").val();
+    // var computerName = $(".computer-select").val();
+    var computerName = playerTypes.Computer.map(function(player){
+      return(player.name)
+    });
+
+    var computerName = computerName[Math.floor(Math.random() * computerName.length)];
 
     user = window[userName.toLowerCase()];
     computer = window[computerName.toLowerCase()];
 
     $(".human p").html("<p>" + user.name + "</p>");
     $(".computer p").html("<p>" + computer.name + "</p>");
-
 });
+
 
 // Attack method
 $(document).on("click", ".attack", function(e) {
     e.preventDefault();
 
+
     user.attack(computer);
     computer.attack(user);
+
 
     if (user.health <= 0 && user.health < computer.health) {
         $(".attack").addClass("hide");
