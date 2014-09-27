@@ -29,7 +29,7 @@
     <div id='title'>
       <span class='letter l0'>T</span><span class='letter l1'>H</span><span class='letter l2'>E</span><span class='letter l3'> </span><span class='letter l4'>I</span><span class='letter l5'>R</span><span class='letter l6'>O</span><span class='letter l7'>N</span><span class='letter l8'> </span><span class='letter l9'>B</span><span class='letter l10'>R</span><span class='letter l11'>A</span><span class='letter l12'>W</span><span class='letter l13'>L</span>
     </div>
-    <img id='title-image' src="images/jake-smith.jpg"/>
+    <img id='title-image' src="images/Jake.jpg"/>
     <!-- <a id='play' href="#">
       <span class='letter l0'>c</span><span class='letter l1'>l</span><span class='letter l2'>i</span><span class='letter l3'>c</span><span class='letter l4'>k</span><span class='letter l5'> </span><span class='letter l6'>t</span><span class='letter l7'>o</span><span class='letter l8'> </span><span class='letter l9'>p</span><span class='letter l10'>l</span><span class='letter l11'>a</span><span class='letter l12'>y<span>
     </a> -->
@@ -49,6 +49,9 @@
 
     <div class="human player">
       <p></p>
+      <script id='human-name'type="text/template">
+        <img id='human-image' src="images/<%= name %>.jpg"/>
+      </script>
       <div class="health">
         <span></span>
       </div>
@@ -58,17 +61,24 @@
     </div>
     <div class="computer player">
       <p></p>
+      <script id='computer-name'type="text/template">
+        <img id='computer-image' src="images/<%= name %>.jpg"/>
+      </script>
       <div class="health">
         <span></span>
       </div>
       <ul class="attack-history"></ul>
     </div>
-
   </div>
 
   <script type="text/template" id="select-template">
     <option value = "<%= name %>" > <%= name %> </option>
   </script>
+
+
+
+
+
   <!-- build:js scripts/vendor.js -->
   <!-- bower:js -->
   <script src="../bower_components/jquery/dist/jquery.js"></script>

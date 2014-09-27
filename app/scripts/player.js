@@ -5,28 +5,28 @@
 var playerTypes = {
     "User": [{
         name: "Mady",
-        weapon: 'animalMimicry',
+        weapon: [{type:'animalMimicry', points:5}],
         power: 600
     }, {
         name: "Jonathan",
-        weapon: 'psychicBlast',
+        weapon: [{type:'psychicBlast', points:5}],
         power: 200
     }, {
         name: "Skylar",
-        weapon: 'biologicalManipulation',
+        weapon: [{type:'biologicalManipulation', points:5}],
         power: 900
     }, ],
     "Computer": [{
         name: "Mason",
-        weapon: "intellectualStare",
+        weapon: [{type:'intellectualStare', points:5}],
         power: 1000
     }, {
         name: "Jake",
-        weapon: "deathWishCoffee",
+        weapon: [{type:'deathWishCoffee', points:5}],
         power: 800
     }, {
         name: "Matt",
-        weapon: "zenKoan",
+        weapon: [{type:'zenKoan', points:5}],
         power: 600
     }]
 },
@@ -86,6 +86,7 @@ function Player(options) {
     this.id = 1 || options.id;
     this.name = "" || options.name;
     this.voodooFactor = "100" || options.voodooFactor;
+    this.weapon = [{type:'sword', points:3}, {type: 'handslap', points: 2}]
 }
 
 // Attack prototype
@@ -106,7 +107,7 @@ Player.prototype.attack = function(attacked) {
 function User(options) {
     if (!options) options = {};
     Player.apply(this, arguments);
-    this.weapon = options.weapon || "";
+    this.weapon = _.union(options.weapon,this.weapon) || "";
     this.power = options.power || "";
     this.name = options.name || "";
 }
@@ -122,7 +123,7 @@ buildConstructors("User");
 function Computer(options) {
     if (!options) options = {};
     Player.apply(this, arguments);
-    this.weapon = options.weapon || "";
+    this.weapon = _.union(options.weapon,this.weapon) || "";
     this.power = options.power || "";
     this.name = options.name || "";
 }
@@ -145,6 +146,25 @@ $(document).on("click", ".play", function(e) {
     });
 
     var computerName = computerName[Math.floor(Math.random() * computerName.length)];
+
+    userSelection = new Template({
+        id: 'human-name',
+        where: 'human'
+    });
+
+    userSelection.render({
+      "name":userName
+    });
+
+    computerSelection = new Template({
+        id: 'computer-name',
+        where: 'computer'
+    });
+
+    computerSelection.render({
+      "name":computerName
+    });
+
 
     user = window[userName.toLowerCase()];
     computer = window[computerName.toLowerCase()];
