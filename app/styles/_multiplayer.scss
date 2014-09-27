@@ -1,6 +1,46 @@
 // Multiplayer styles
 
+#multiplayer{
+	background-color: #000;
+	color:#FFF;
+	input{
+		min-height:em(50px);
+		display: block;
+		width:100%;
+		padding:em(5px);
+		color:#333;
+	}
+	h2{
+		color:green;
+	}
+}
+
+.create{
+	display: block;
+	padding:em(20px);
+	background: red;
+	border-radius:em(3px);
+	text-align:center;
+	color:#FFF;
+	margin-top:em(20px);
+}
+
 .multiplayer-wrap{
 	@include span-columns(6);
 	@include shift(3);
+}
+
+.game-list-wrapper{
+	margin-top:em(75px);
+}
+
+.join{
+	padding:em(20px);
+	text-align: center;
+}
+
+.game-list{
+	li{
+		margin-bottom: em(70px);
+	}
 }
