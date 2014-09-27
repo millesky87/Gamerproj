@@ -3,12 +3,24 @@ var url = "http://tiny-pizza-server.herokuapp.com/collections/the-iron-brawl/";
 var gameList = new Template({
     id: 'gameList-template',
     where: 'game-list',
-    players: [
-    {},{}
-    ]
+    method: "append"
 });
 
+var gameInfo = {
+	active: true,
+	player1:"",
+	player2:"",
+	date: new Date()
+}
 
+
+/* ------------------------------------
+Get list of open games
+*/
+
+function getActiveGames(){
+	$(".game-list").html("");
+	console.log("Getting active games");
 $.ajax({
     url: url,
     type: "GET",
@@ -22,18 +34,21 @@ $.ajax({
     .each(function(game) {
         gameList.render({
             id: game._id,
-            player1: game.players[0].name,
+            player1: game.player1,
+            //player2: game.players[1].name
         });
     });
-
 });
 
+}
 
-gameInfo = {
-    active: true,
-    players: [],
-    date: new Date(),
-};
+getActiveGames();
+
+var getGames = setInterval(getActiveGames, 10000);
+
+/* ------------------------------------
+Create Game
+*/
 
 function createGame(gameInfo) {
 
@@ -47,35 +62,18 @@ function createGame(gameInfo) {
     });
 }
 
-$(document).on("click", ".create", function(e) {
-    e.preventDefault();
-    console.log("clicked");
-    var name = $(".name").val();
-    gameInfo.players.push({
-        "name": name
-    });
-    createGame(gameInfo);
-})
 
 
-
-$(document).on("click", ".join", function(e) {
-	console.log("join")
-    e.preventDefault();
-    var gameID = $(this).attr("gameID");
-    joinGame(gameID, name);
-});
-
-function deleteGame() {
-
-}
+/* ------------------------------------
+Join Game
+*/
 
 function joinGame(gameID, name) {
-    data = {};
-    data.players["name"].push(name);
+    console.log(data);
+
     $.ajax({
         url: url + gameID,
-        data: data,
+        data: {player2: name},
         type: "PUT",
         dataType: "json"
     }).done(function() {
@@ -83,6 +81,10 @@ function joinGame(gameID, name) {
     });
 
 }
+
+/* ------------------------------------
+Deactivate Games
+*/
 
 function deactivateGame(gameID){
 	$.ajax({
@@ -96,6 +98,11 @@ function deactivateGame(gameID){
         console.log("Game Added");
     });
 }
+
+
+/* ------------------------------------
+DELETE
+*/
 
 function deleteGame(id) {
     $.ajax({
@@ -115,11 +122,33 @@ function deleteAllGames() {
     }).done(function(data) {
         _.each(data, function(game) {
             $.ajax({
-                url: url + "/" + game._id,
+                url: url + game._id,
                 type: "DELETE",
             }).done(function() {
                 console.log("Games Deleted");
             });
-        })
+        });
     });
 }
+
+
+/* ------------------------------------
+Click Events
+*/
+
+$(document).on("click", ".create", function(e) {
+    e.preventDefault();
+    console.log("clicked");
+    gameInfo.player1 = $(".name").val();
+    createGame(gameInfo);
+});
+
+
+
+$(document).on("click", ".join", function(e) {
+	console.log("join");
+    e.preventDefault();
+    var gameID = $(this).attr("gameID");
+    var name = $(this).
+    joinGame(gameID, name);
+});

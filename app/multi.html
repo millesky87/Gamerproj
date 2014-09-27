@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="../bower_components/normalize-css/normalize.css" />
   <!-- endbower -->
   <!-- endbuild -->
+  <link href='http://fonts.googleapis.com/css?family=Press+Start+2P|Fjalla+One' rel='stylesheet' type='text/css'>
 
   <!-- build:css styles/main.css -->
   <link rel="stylesheet" href="styles/main.css">
@@ -23,27 +24,28 @@
   <!-- endbuild -->
 </head>
 
-<body>
+<body id="multiplayer">
 
-  <div class="multiplayer">
+<div class="main-wrap">
+  <div class="multiplayer-wrap">
     
-    <input class="name">
+    <input class="name" type="text"  placeholder="Player 1 Name">
     <a href="" class="create">Create Game</a>
-
-    <ul class="openGames"></ul>
-  
-  <ul class="game-list">  
-    <script type="text/template" id="gameList-template">
-      <li>
-      <a href="#"> <%= id %></a> 
-      <input type="text" class="player2" placeholder="Player 2 Name">
-      <a href="" class="join" gameID = <%= id %> > join game </a>
-      </li>
-    </script>
-  </ul>
-
-    
+    <div class="game-list-wrapper">
+      <h2>Open Games</h2>
+      <ul class="game-list">
+      </ul>
+    </div>
   </div>
+</div>
+        <script type="text/template" id="gameList-template">
+        <li>
+          <p><%= id %></p>
+          <p>Fight with <%= player1 %> </p>
+          <input type="text" class="player2" placeholder="Player 2 Name">
+          <a href="" class="join button" gameID = <%= id %> > join game </a>
+        </li>
+        </script>
   <!-- build:js scripts/vendor.js -->
   <!-- bower:js -->
   <script src="../bower_components/jquery/dist/jquery.js"></script>

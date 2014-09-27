@@ -86,7 +86,8 @@ function Player(options) {
     this.id = 1 || options.id;
     this.name = "" || options.name;
     this.voodooFactor = "100" || options.voodooFactor;
-    this.weapons = [{type:'sword', points:3}, {type: 'handslap', points: 2}]
+    this.weapons = [{type:'sword', points:3}, {type: 'handslap', points: 2}];
+    this.power = 1000 || options.power;
 }
 
 // Attack prototype
