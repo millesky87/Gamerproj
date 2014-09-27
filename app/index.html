@@ -1,70 +1,80 @@
 <!doctype html>
 <html class="no-js">
-  <head>
-    <meta charset="utf-8">
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
-    <title>Gamerproj</title>
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-    <!-- build:css styles/vendor.css -->
-    <!-- bower:css -->
-    <link rel="stylesheet" href="../bower_components/normalize-css/normalize.css" />
-    <!-- endbower -->
-    <!-- endbuild -->
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
+  <title>Gamerproj</title>
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-    <!-- build:css styles/main.css -->
-    <link rel="stylesheet" href="styles/main.css">
-    <!-- endbuild -->
+  <!-- build:css styles/vendor.css -->
+  <!-- bower:css -->
+  <link rel="stylesheet" href="../bower_components/normalize-css/normalize.css" />
+  <!-- endbower -->
+  <!-- endbuild -->
 
-    <!-- build:js scripts/vendor/modernizr.js -->
-    <script src="../bower_components/modernizr/modernizr.js"></script>
-    <!-- endbuild -->
-  </head>
-  <body>
+  <!-- build:css styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild -->
 
-    <div class='you-lose hide'>YOU LOSE</div>
-    <div class='you-win hide'>YOU WIN</div>
+  <!-- build:js scripts/vendor/modernizr.js -->
+  <script src="../bower_components/modernizr/modernizr.js"></script>
+  <!-- endbuild -->
+</head>
 
-    <div class="main-wrap">
+<body>
+
+  <div id="home">
+    <div id='title'>
+                     <span class='l0'>T</span><span class='l1'>H</span><span class='l2'>E</span><span class='l3'> </span><span class='l4'>I</span><span class='l5'>R</span><span class='l6'>O</span><span class='l7'>N</span><span class='l8'> </span><span class='l9'>B</span><span class='l10'>R</span><span class='l11'>A</span><span class='l12'>W</span><span class='l13'>L</span>
+              </div>
+    <img id='title-image' src="images/jake-smith.jpg" />
+  </div>
+
+  <div class='you-lose hide'>YOU LOSE</div>
+  <div class='you-win hide'>YOU WIN</div>
+
+  <div class="main-wrap">
 
     <div class="choose-player">
-        <select name="" class="user-select"></select>
-        <select name="" class="computer-select"></select>
-        <a href="#" class="button play">Play</a>
+      <select name="" class="user-select"></select>
+      <select name="" class="computer-select"></select>
+      <a href="#" class="button play">Play</a>
     </div>
 
-        <div class="human player">
-            <p></p>
-            <a href="#" class="button attack">Attack</a>
-            <div class="health">
-                <span></span>
-            </div>
-            <ul class="attack-history"></ul>
-        </div>
-        <div class="computer player">
-            <p></p>
-            <div class="health">
-                <span></span>
-            </div>
-            <ul class="attack-history"></ul>
-        </div>
-
+    <div class="human player">
+      <p></p>
+      <a href="#" class="button attack">Attack</a>
+      <div class="health">
+        <span></span>
+      </div>
+      <ul class="attack-history"></ul>
+    </div>
+    <div class="computer player">
+      <p></p>
+      <div class="health">
+        <span></span>
+      </div>
+      <ul class="attack-history"></ul>
     </div>
 
-    <script type="text/template" id="select-template">
-        <option value="<%= name %>"> <%= name %> </option>
-    </script>
-    <!-- build:js scripts/vendor.js -->
-    <!-- bower:js -->
-    <script src="../bower_components/jquery/dist/jquery.js"></script>
-    <script src="../bower_components/underscore/underscore.js"></script>
-    <!-- endbower -->
-    <!-- endbuild -->
+  </div>
 
-        <!-- build:js scripts/main.js -->
-        <script src="scripts/main.js"></script>
-        <script src="scripts/player.js"></script>
-        <!-- endbuild -->
+  <script type="text/template" id="select-template">
+    <option value = "<%= name %>" > <%= name %> </option>
+  </script>
+  <!-- build:js scripts/vendor.js -->
+  <!-- bower:js -->
+  <script src="../bower_components/jquery/dist/jquery.js"></script>
+  <script src="../bower_components/underscore/underscore.js"></script>
+  <!-- endbower -->
+  <!-- endbuild -->
+
+  <!-- build:js scripts/main.js -->
+  <script src="scripts/main.js"></script>
+  <script src="scripts/player.js"></script>
+  <!-- endbuild -->
 </body>
+
 </html>

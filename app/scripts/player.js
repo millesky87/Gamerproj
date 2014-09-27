@@ -39,7 +39,7 @@ function Player(options) {
   this.health = 100;
   this.autoTurn = false;
   this.id = 1;
-  this.name = ""
+  this.name = "";
 }
 
 // Attack prototype
@@ -60,7 +60,7 @@ Player.prototype.attack = function(attacked) {
 
 function User(options) {
   if (!options) options = {};
-  console.log("OPtions:", options);
+  console.log("Options:", options);
   Player.apply(this, arguments);
   this.weapon = options.weapon || "";
   this.power = options.power || "";
@@ -69,19 +69,19 @@ function User(options) {
 User.prototype = Object.create(Player.prototype);
 
 var mady = new User({
-	name: "Mady",
-	power: 600,
-})
+  name: "Mady",
+  power: 600,
+});
 
 var jonathan = new User({
-	name: "Jonathan",
-	power: 200,
-})
+  name: "Jonathan",
+  power: 200,
+});
 
 var skylar = new User({
-	name: "Skylar",
-	power: 900,
-})
+  name: "Skylar",
+  power: 900,
+});
 // function Mady(options){
 // 	User.apply(this, arguments);
 // }
@@ -100,9 +100,12 @@ var skylar = new User({
 */
 
 function Computer(options) {
+  if (!options) options = {};
+  console.log("Options:", options);
   Player.apply(this, arguments);
-  this.autoTurn = true;
-  this.name = options.name;
+  this.weapon = options.weapon || "";
+  this.power = options.power || "";
+  this.name = options.name || "";
 }
 Computer.prototype = Object.create(Player.prototype);
 
@@ -111,13 +114,16 @@ Computer.prototype = Object.create(Player.prototype);
 //var computer = new Computer();
 
 var mason = new Computer({
-	name: "Mason",
+  name: "Mason",
+  weapon: "crazyStare"
 });
 var matt = new Computer({
-	name: "Matt",
+  name: "Matt",
+  weapon: "zenKoan"
 });
 var jake = new Computer({
-	name: "Jake",
+  name: "Jake",
+  weapon: "deathWishCoffee"
 });
 
 //console.log(playerTypes["User"][0]);
@@ -139,7 +145,7 @@ $(document).on("click", ".play", function(e) {
   user = window[userName.toLowerCase()];
   computer = window[computerName.toLowerCase()];
 
-  console.log("User",user, "Computer",computer);
+  console.log("User", user, "Computer", computer);
 
   $(".human p").html("<p>" + user.name + "</p>");
   $(".computer p").html("<p>" + computer.name + "</p>");
