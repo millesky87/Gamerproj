@@ -146,6 +146,25 @@ $(document).on("click", ".play", function(e) {
 
     var computerName = computerName[Math.floor(Math.random() * computerName.length)];
 
+    userSelection = new Template({
+        id: 'human-name',
+        where: 'human'
+    });
+
+    userSelection.render({
+      "name":userName
+    });
+
+    computerSelection = new Template({
+        id: 'computer-name',
+        where: 'computer'
+    });
+
+    computerSelection.render({
+      "name":computerName
+    });
+
+
     user = window[userName.toLowerCase()];
     computer = window[computerName.toLowerCase()];
 
