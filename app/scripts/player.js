@@ -13,20 +13,20 @@ var playerTypes = {
         power: 200
     }, {
         name: "Skylar",
-        weapon: 'biologicalManipulation',
+        weapon: [{type:'biologicalManipulation', points:5}],
         power: 900
     }, ],
     "Computer": [{
         name: "Mason",
-        weapon: "intellectualStare",
+        weapon: [{type:'intellectualStare', points:5}],
         power: 1000
     }, {
         name: "Jake",
-        weapon: "deathWishCoffee",
+        weapon: [{type:'deathWishCoffee', points:5}],
         power: 800
     }, {
         name: "Matt",
-        weapon: "zenKoan",
+        weapon: [{type:'zenKoan', points:5}],
         power: 600
     }]
 },
@@ -123,7 +123,7 @@ buildConstructors("User");
 function Computer(options) {
     if (!options) options = {};
     Player.apply(this, arguments);
-    this.weapon = options.weapon || "";
+    this.weapon = _.union(options.weapon,this.weapon) || "";
     this.power = options.power || "";
     this.name = options.name || "";
 }
