@@ -8,10 +8,10 @@ var gameList = new Template({
 
 var gameInfo = {
 	active: true,
-	player1:"",
-	player2:"",
+	player1:{},
+	player2:{},
 	date: new Date()
-}
+};
 
 
 /* ------------------------------------
@@ -34,17 +34,19 @@ $.ajax({
     .each(function(game) {
         gameList.render({
             id: game._id,
-            player1: game.player1,
+            player1: game.player1.name,
+            character: game.player1.character,
+
             //player2: game.players[1].name
         });
     });
 });
+displayPlayers(playerTypes.User, userSelect);
 
 }
-
 getActiveGames();
 
-var getGames = setInterval(getActiveGames, 10000);
+// var getGames = setInterval(getActiveGames, 10000);
 
 /* ------------------------------------
 Create Game
@@ -69,8 +71,7 @@ Join Game
 */
 
 function joinGame(gameID, name) {
-    console.log(data);
-
+	console.log(gameID, name);
     $.ajax({
         url: url + gameID,
         data: {player2: name},
@@ -139,7 +140,8 @@ Click Events
 $(document).on("click", ".create", function(e) {
     e.preventDefault();
     console.log("clicked");
-    gameInfo.player1 = $(".name").val();
+    gameInfo.player1["name"] = $(".name").val();
+    gameInfo.player1["character"] = $(this).siblings(".user-select").val();
     createGame(gameInfo);
 });
 
@@ -149,6 +151,6 @@ $(document).on("click", ".join", function(e) {
 	console.log("join");
     e.preventDefault();
     var gameID = $(this).attr("gameID");
-    var name = $(this).
+    var name = $(this).siblings(".name").val();
     joinGame(gameID, name);
 });

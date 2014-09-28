@@ -38,10 +38,24 @@ a{
   width: 500px;
 }
 
+.stage{
+  @include outer-container;
+  min-height: 300px;
+  background: #ebebeb;
+  position: relative;
+  margin-bottom:em(20px);
+}
+
+.area{
+  @include span-columns(6);
+  min-height: 300px;
+  position:relative;
+}
+
 .main-wrap{
   @extend .videoGameFont;
   max-width: em(500px);
-  margin-top: em(50px);
+  margin-top: em(10px);
   margin-bottom: em(100px);
   @include outer-container;
 
@@ -50,7 +64,7 @@ a{
 .player{
   @include span-columns(6);
   background:#CCC;
-  min-height:300px;
+  min-height:200px;
   position: relative;
   border-radius:3px;
 }
@@ -151,9 +165,9 @@ transition: all .1s ease;
 
 .health{
   height:em(20px);
-  position:absolute;
+  position:relative;
   background: red;
-  bottom:0;
+  //bottom:0;
   width:100%;
   overflow: hidden;
   border-radius: 0 0 3px 3px;
@@ -168,9 +182,14 @@ transition: all .1s ease;
 }
 
 .game-over {
+  @extend .videoGameFont;
   margin: 250px auto;
   text-align: center;
+  font-size: 3em;
   width: 500px;
+  a{
+    color:green;
+  }
 }
 
 .hide {

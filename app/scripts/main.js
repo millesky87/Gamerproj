@@ -1,4 +1,4 @@
-//console.log('The Iron Yard Rocks');
+"use strict";
 
 // $(function(){
 // 		setTimeout(function(){

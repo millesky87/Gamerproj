@@ -29,23 +29,31 @@
 <div class="main-wrap">
   <div class="multiplayer-wrap">
     
+    <label for="playerSelect">Select Player</label>
+    <select name="playerSelect" class="user-select"></select>
+
     <input class="name" type="text"  placeholder="Player 1 Name">
     <a href="" class="create">Create Game</a>
     <div class="game-list-wrapper">
       <h2>Open Games</h2>
       <ul class="game-list">
       </ul>
+      
     </div>
   </div>
 </div>
         <script type="text/template" id="gameList-template">
         <li>
           <p><%= id %></p>
-          <p>Fight with <%= player1 %> </p>
+          <p>Fight with <%= player1 %> as <%= character %></p>
           <input type="text" class="player2" placeholder="Player 2 Name">
           <a href="" class="join button" gameID = <%= id %> > join game </a>
         </li>
         </script>
+
+          <script type="text/template" id="select-template">
+    <option value = "<%= name %>" > <%= name %> </option>
+  </script>
   <!-- build:js scripts/vendor.js -->
   <!-- bower:js -->
   <script src="../bower_components/jquery/dist/jquery.js"></script>

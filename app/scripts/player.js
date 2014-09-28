@@ -1,35 +1,53 @@
 /* ------------------------------------------------
     Player types and players
 */
-
-var playerTypes = {
-    "User": [{
-        name: "Mady",
-        weapons: [{type:'animalMimicry', points:5}],
-        power: 600
-    }, {
-        name: "Jonathan",
-        weapons: [{type:'psychicBlast', points:5}],
-        power: 200
-    }, {
-        name: "Skylar",
-        weapons: [{type:'biologicalManipulation', points:5}],
-        power: 900
-    }, ],
-    "Computer": [{
-        name: "Mason",
-        weapons: [{type:'intellectualStare', points:5}],
-        power: 1000
-    }, {
-        name: "Jake",
-        weapons: [{type:'deathWishCoffee', points:5}],
-        power: 800
-    }, {
-        name: "Matt",
-        weapons: [{type:'zenKoan', points:5}],
-        power: 600
-    }]
-},
+var url = "http://tiny-pizza-server.herokuapp.com/collections/the-iron-brawl/",
+    playerTypes = {
+        "User": [{
+            name: "Mady",
+            weapons: [{
+                type: 'animalMimicry',
+                points: 5
+            }],
+            power: 600
+        }, {
+            name: "Jonathan",
+            weapons: [{
+                type: 'psychicBlast',
+                points: 5
+            }],
+            power: 200
+        }, {
+            name: "Skylar",
+            weapons: [{
+                type: 'biologicalManipulation',
+                points: 5
+            }],
+            power: 900
+        }, ],
+        "Computer": [{
+            name: "Mason",
+            weapons: [{
+                type: 'intellectualStare',
+                points: 5
+            }],
+            power: 1000
+        }, {
+            name: "Jake",
+            weapons: [{
+                type: 'deathWishCoffee',
+                points: 5
+            }],
+            power: 800
+        }, {
+            name: "Matt",
+            weapons: [{
+                type: 'zenKoan',
+                points: 5
+            }],
+            power: 600
+        }]
+    },
     user,
     computer;
 
@@ -51,7 +69,7 @@ function displayPlayers(data, constructor) {
     });
 }
 
-function updateHealthBar(){
+function updateHealthBar() {
 
     $(".human .health span").css({
         width: user.health + "%"
@@ -62,6 +80,19 @@ function updateHealthBar(){
 
 }
 
+function checkHealth(userHealth, computerHealth) {
+    if (userHealth <= 0 && userHealth < computerHealth) {
+        $(".attack").addClass("hide");
+        $(".main-wrap").addClass("hide");
+        $(".you-lose").removeClass("hide");
+    }
+
+    if (computerHealth <= 0 && computerHealth < userHealth) {
+        $(".attack").addClass("hide");
+        $(".main-wrap").addClass("hide");
+        $(".you-win").removeClass("hide");
+    }
+}
 
 /* ------------------------------------------------
     Add player choices to DOM
@@ -86,7 +117,13 @@ function Player(options) {
     this.id = 1 || options.id;
     this.name = "" || options.name;
     this.voodooFactor = "100" || options.voodooFactor;
-    this.weapons = [{type:'sword', points:3}, {type: 'handslap', points: 2}];
+    this.weapons = [{
+        type: 'sword',
+        points: 3
+    }, {
+        type: 'handslap',
+        points: 2
+    }];
     this.power = 1000 || options.power;
 }
 
@@ -106,9 +143,9 @@ Player.prototype.attack = function(attacked) {
 */
 
 function User(options) {
-    if (!options) options = {};
+    options = options || {};
     Player.apply(this, arguments);
-    this.weapons = _.union(options.weapons,this.weapons) || "";
+    this.weapons = _.union(options.weapons, this.weapons) || "";
     this.power = options.power || "";
     this.name = options.name || "";
 }
@@ -122,9 +159,9 @@ buildConstructors("User");
 */
 
 function Computer(options) {
-    if (!options) options = {};
+    options = options || {};
     Player.apply(this, arguments);
-    this.weapons = _.union(options.weapons,this.weapons) || "";
+    this.weapons = _.union(options.weapons, this.weapons) || "";
     this.power = options.power || "";
     this.name = options.name || "";
 }
@@ -134,58 +171,104 @@ buildConstructors("Computer");
 
 
 /* ------------------------------------------------
-  Click Events
+    Create Computers (enemies)
 */
 
-var renderWeapons = new Template({
-  id: "weapon-options",
-  where: "human-weapons"
-});
+function addWeapons(user) {
 
-function addWeapons(user){
+    console.log("User:", user);
 
-  console.log("User:",user);
-
-  _.each(user.weapons, function(weapon){
-    renderWeapons.render({
-      weapon: weapon.type,
-      points: weapon.points
+    _.each(user.weapons, function(weapon) {
+        renderWeapons.render({
+            weapon: weapon.type,
+            points: weapon.points
+        })
     })
-  })
 
 };
 
+function createGame(gameInfo) {
+
+    $.ajax({
+        url: url,
+        data: gameInfo,
+        type: "POST",
+        dataType: "json"
+    }).done(function() {
+        console.log("Game Added");
+    });
+}
+
+function animatePlayers() {
+    $('#human-image').toggleClass('human-attack');
+    $('#computer-image').toggleClass('computer-attack');
+    $('#human-image').toggleClass('human-idle');
+    $('#computer-image').toggleClass('computer-idle');
 
 
+    setTimeout(function() {
+        $('#human-image').toggleClass('human-attack');
+        $('#computer-image').toggleClass('computer-attack');
+        $('#human-image').toggleClass('human-idle');
+        $('#computer-image').toggleClass('computer-idle');
+    }, 1000);
+}
+
+function conjureMagic(type) {
+
+    var magicAffectTime = 5,
+        i = 0,
+        magicInterval;
+    magicInterval = setInterval(function() {
+        console.log("Using magic - reduction", computer);
+        computer.health = computer.health - 5;
+        updateHealthBar();
+        if (++i === magicAffectTime) {
+            window.clearInterval(magicInterval);
+        }
+    }, 2000);
+}
+
+var renderWeapons = new Template({
+    id: "weapon-options",
+    where: "human-weapons"
+});
+
+function stagePlayers(userName, computerName){
+    userSelection = new Template({
+        id: 'human-name',
+        where: 'human-area'
+    });
+
+    userSelection.render({
+        "name": userName
+    });
+
+    computerSelection = new Template({
+        id: 'computer-name',
+        where: 'computer-area'
+    });
+
+    computerSelection.render({
+        "name": computerName
+    });
+}
+
+/* ------------------------------------------------
+  Click Events
+*/
 
 // Play
 $(document).on("click", ".play", function(e) {
     e.preventDefault();
     var userName = $(".user-select").val();
-    // var computerName = $(".computer-select").val();
-    var computerName = playerTypes.Computer.map(function(player){
-      return(player.name)
+    var computerName = playerTypes.Computer.map(function(player) {
+        return (player.name);
     });
 
-    var computerName = computerName[Math.floor(Math.random() * computerName.length)];
+    computerName = computerName[Math.floor(Math.random() * computerName.length)];
 
-    userSelection = new Template({
-        id: 'human-name',
-        where: 'human'
-    });
-
-    userSelection.render({
-      "name":userName
-    });
-
-    computerSelection = new Template({
-        id: 'computer-name',
-        where: 'computer'
-    });
-
-    computerSelection.render({
-      "name":computerName
-    });
+    stagePlayers(userName, computerName);
 
     user = window[userName.toLowerCase()];
     computer = window[computerName.toLowerCase()];
@@ -197,6 +280,8 @@ $(document).on("click", ".play", function(e) {
 
     $(".main-wrap").removeClass("hide");
     $("#home").addClass("hide");
+
+    //createGame(user);
 });
 
 
@@ -204,52 +289,19 @@ $(document).on("click", ".play", function(e) {
 $(document).on("click", ".attack", function(e) {
     e.preventDefault();
 
-
     user.attack(computer);
     computer.attack(user);
 
-
-    if (user.health <= 0 && user.health < computer.health) {
-        $(".attack").addClass("hide");
-        $(".main-wrap").addClass("hide");
-        $(".you-lose").removeClass("hide");
-    }
-
-    if (computer.health <= 0 && computer.health < user.health) {
-        $(".attack").addClass("hide");
-        $(".main-wrap").addClass("hide");
-        $(".you-win").removeClass("hide");
-    }
+    checkHealth(user.health, computer.health);
 
     updateHealthBar();
 
-    $('#human-image').toggleClass('human-attack');
-    $('#computer-image').toggleClass('computer-attack');
-    $('#human-image').toggleClass('human-idle');
-    $('#computer-image').toggleClass('computer-idle')
-
-
-    setTimeout(function(){
-    $('#human-image').toggleClass('human-attack');
-    $('#computer-image').toggleClass('computer-attack')
-    $('#human-image').toggleClass('human-idle');
-    $('#computer-image').toggleClass('computer-idle')
-  }, 1000);
+    animatePlayers();
 
 });
 
 // Magic button
 $(document).on("click", ".magic", function(e) {
     e.preventDefault();
-    var magicAffectTime = 5,
-        i = 0,
-        magicInterval;
-    magicInterval = setInterval(function(){
-            console.log("Using magic - reduction", computer);
-            computer.health = computer.health - 5;
-            updateHealthBar();
-            if (++i === magicAffectTime) {
-                window.clearInterval(magicInterval);
-            }
-        },2000);
+    conjureMagic(type);
 });
