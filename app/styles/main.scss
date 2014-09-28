@@ -18,8 +18,9 @@
 
 body {
     background: #fafafa;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    @extend .videoGameFont;
     color: #333;
+    font-size: 100%;
 }
 
 ul {
@@ -37,6 +38,23 @@ a {
     text-align: -webkit-center;
     text-align: center;
     width: 500px;
+}
+
+.gameType-select{
+    margin:1em 0 1.5em 0;
+    a{
+        display: inline-block;
+        margin:0 2%;
+        width:46%;
+        box-sizing:border-box;
+        font-size: .65em;
+
+    }
+    span{
+    font-size: .5em;
+        display: block;
+        padding-top:5px;
+    }
 }
 
 .stage {
@@ -60,6 +78,7 @@ a {
     margin-bottom: em(100px);
     @include outer-container;
 }
+
 
 .attack-history{
     padding:20px;

@@ -168,7 +168,7 @@ function checkHealth(userHealth, computerHealth) {
 
 userSelect = new Template({
     id: 'select-template',
-    where: 'user-select'
+    where: 'player1-select'
 });
 
 displayPlayers(playerTypes.User, userSelect);
@@ -290,17 +290,22 @@ function firstAid(){
 // Play
 $(document).on("click", ".play", function(e) {
     e.preventDefault();
-    var userName = $(".user-select").val();
-    var computerName = playerTypes.Computer.map(function(player) {
-        return (player.name);
-    });
+    var player1 = $(".player1-select").val();
+    if($(".twoPlayer").hasClass(".selected"))
+        var player2 = $(".player2-select").val();
+    else
+        var player2 = playerTypes.Computer.map(function(player) {
+            return (player.name);
+        });
 
-    computerName = computerName[Math.floor(Math.random() * computerName.length)];
+    player2 = player2[Math.floor(Math.random() * player2.length)];
 
-    stagePlayers(userName, computerName);
+    console.log(player1,player2);
 
-    user = window[userName.toLowerCase()];
-    computer = window[computerName.toLowerCase()];
+    stagePlayers(player1, player2);
+
+    user = window[player1.toLowerCase()];
+    computer = window[player2.toLowerCase()];
 
     addWeapons(user);
 
@@ -345,6 +350,13 @@ $(document).on("click", ".weapon", function(e) {
 $(document).on("click", ".magic", function(e) {
     e.preventDefault();
     conjureMagic();
+});
+
+$(document).on("click", ".gameType-select .button", function(e) {
+    e.preventDefault();
+    console.log("selelct")
+    $(this).siblings().removeClass("selected");
+    $(this).addClass("selected");
 });
 
 
