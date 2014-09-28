@@ -399,6 +399,7 @@ $(function(){
 
   staticImage = setInterval(function(){
     step = (step > limit) ? 0 : step + 1;
-    $("#title-image").attr("src","images/"+allOptions[step]+".jpg")
+    $("#title-image").attr("src","images/"+allOptions[step]+".jpg");
+    $("#title-image-name").text(allOptions[step]);
   },5000);
 });
