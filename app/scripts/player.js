@@ -245,11 +245,13 @@ function conjureMagic() {
     magicInterval = setInterval(function() {
         console.log("Using magic - reduction", computer);
         computer.health = computer.health - 5;
+        checkHealth(user.health, computer.health);
         updateHealthBar();
         if (++i === magicAffectTime) {
             window.clearInterval(magicInterval);
         }
     }, 2000);
+
 }
 
 function stagePlayers(userName, computerName){
