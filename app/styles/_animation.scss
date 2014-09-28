@@ -1,5 +1,6 @@
 #title-image {
-  border-radius: rem(160);
+  border-radius: rem(200);
+  height: 305px;
   -webkit-animation-name: rotate;
   -webkit-animation-duration: 5s;
   -webkit-animation-iteration-count: infinite;
@@ -37,7 +38,7 @@
   z-index: 11;
   -webkit-animation: attack1 1s infinite;
   -moz-animation: attack1 1s infinite;
-  animation: attack1 1s infinite;
+  animation: attack1 2s infinite;
 }
 
 .human-idle {

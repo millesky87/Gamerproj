@@ -33,7 +33,6 @@ var playerTypes = {
     user,
     computer;
 
-
 function buildConstructors(playerType) {
     _.each(playerTypes[playerType], function(player) {
         if (playerType == "User")
@@ -50,6 +49,28 @@ function displayPlayers(data, constructor) {
         });
     });
 }
+
+var players = playerTypes.Computer.map(function(player){
+  return(player.name)
+});
+
+
+
+$(document).ready(function(){
+  var players = ["Jake","Mason","Matt","Mady","Jonathan"]
+  var step = 0;
+  var limit = players.length - 2;
+
+  setInterval(function(){
+    step = (step > limit) ? 0 : step + 1;
+    $("#title-image").attr("src","images/"+players[step]+".jpg")
+
+  },5000);
+});
+
+
+
+
 
 function updateHealthBar(){
 
@@ -86,8 +107,7 @@ function Player(options) {
     this.id = 1 || options.id;
     this.name = "" || options.name;
     this.voodooFactor = "100" || options.voodooFactor;
-    this.weapons = [{type:'sword', points:3}, {type: 'handslap', points: 2}];
-    this.power = 1000 || options.power;
+    this.weapons = [{type:'sword', points:3}, {type: 'handslap', points: 2}]
 }
 
 // Attack prototype
