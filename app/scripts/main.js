@@ -1,11 +1,5 @@
 "use strict";
 
-// $(function(){
-// 		setTimeout(function(){
-// 		$(".letter").css({position: 'absolute'});
-// 	},3000);
-// });
-
 function Template(options){
 	this.id = options.id;
 	this.where = options.where;

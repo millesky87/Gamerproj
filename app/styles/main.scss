@@ -104,6 +104,9 @@ a {
     @include span-columns(10);
     @include shift(2);
 }
+.engage-methods{
+    margin-bottom:em(50px);
+}
 
 .option-list{
     margin-top: 1em;
@@ -142,8 +145,13 @@ select {
 
 .choose-player {
     @include span-columns(12);
-    margin-bottom: 50px;
-    @include shift(3);
+    @include shift(2);
+    margin-bottom: em(50px);
+    margin-top: em(20px);
+}
+
+.player1-select{
+    min-width: em(200px);
 }
 
 .play {

@@ -201,12 +201,6 @@ function addWeapons(user) {
             where: "human-weapons",
         });
     });
-    // _.each(computer.weapons, function(weapon) {
-    //     renderWeapons.render({
-    //         weapon: weapon.type,
-    //         points: weapon.points
-    //     });
-    // });
 }
 
 
@@ -402,13 +396,6 @@ $(function(){
 
   var step = 0;
   var limit = allOptions.length - 2;
-
-  // setInterval(function(){
-  //   step = (step > limit) ? 0 : step + 1;
-  //   $("#title-image").attr("src","images/"+allOptions[step]+".jpg")
-  //
-  // },5000);
-
 
   staticImage = setInterval(function(){
     step = (step > limit) ? 0 : step + 1;
