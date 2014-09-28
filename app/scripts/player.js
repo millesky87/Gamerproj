@@ -258,6 +258,20 @@ function animatePlayers() {
     }, 1000);
 }
 
+function conjureMagic() {
+
+    var magicAffectTime = 5,
+        i = 0,
+        magicInterval;
+    magicInterval = setInterval(function() {
+        console.log("Using magic - reduction", computer);
+        computer.health = computer.health - 5;
+        updateHealthBar();
+        if (++i === magicAffectTime) {
+            window.clearInterval(magicInterval);
+        }
+    }, 2000);
+}
 
 function stagePlayers(userName, computerName){
     userSelection = new Template({
@@ -369,7 +383,7 @@ $(document).on("click", ".weapon", function(e) {
 // Magic button
 $(document).on("click", ".magic", function(e) {
     e.preventDefault();
-    user.conjureMagic(computer);
+    conjureMagic();
 });
 
 $(document).on("click", ".gameType-select .button", function(e) {
