@@ -50,7 +50,8 @@ var url = "http://tiny-pizza-server.herokuapp.com/collections/the-iron-brawl/",
     },
     user,
     computer,
-    staticImage;
+    staticImage,
+    magicAttempts;
 
 function randomNum(min, max){
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -327,16 +328,20 @@ $(document).on("click", ".play", function(e) {
     $(".main-wrap").removeClass("hide");
     $("#home").addClass("hide");
 
-    setInterval(function(){
+    var i = 0,
+    magicCounter = 3;
+    var magicAttempts = setInterval(function(){
       $(".magic").toggleClass("hide")
-
       setTimeout(function(){
         $(".magic").toggleClass("hide")
-      },2000);
+      },3000);
+      if(++i === magicCounter){
+        window.clearInterval(magicAttempts);
+      }
+      console.log(i);
+    },15000);
 
-    },12000);
-
-    window.clearInterval(staticImage)
+    window.clearInterval(staticImage);
 
     //createGame(user);
 });
