@@ -55,29 +55,6 @@ function randomNum(min, max){
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-$(document).ready(function(){
-
-  var userOptions = playerTypes.User.map(function(player) {
-        return (player.name);
-    });
-
-  var computerOptions =playerTypes.Computer.map(function(player) {
-        return (player.name);
-    });
-
-  var allOptions = $.merge( $.merge( [], userOptions ), computerOptions );
-
-  var step = 0;
-  var limit = allOptions.length - 2;
-
-  setInterval(function(){
-    step = (step > limit) ? 0 : step + 1;
-    $("#title-image").attr("src","images/"+allOptions[step]+".jpg")
-
-  },5000);
-});
-
-
 function buildConstructors(playerType) {
     _.each(playerTypes[playerType], function(player) {
         if (playerType == "User")
@@ -349,6 +326,15 @@ $(document).on("click", ".play", function(e) {
     $(".main-wrap").removeClass("hide");
     $("#home").addClass("hide");
 
+    setInterval(function(){
+      $(".magic").toggleClass("hide")
+
+      setTimeout(function(){
+        $(".magic").toggleClass("hide")
+      },2000);
+
+    },12000);
+
     //createGame(user);
 });
 
@@ -395,5 +381,22 @@ $(document).on("click", ".gameType-select .button", function(e) {
 
 
 $(function(){
-    firstAid();
-})
+  var userOptions = playerTypes.User.map(function(player) {
+        return (player.name);
+    });
+
+  var computerOptions =playerTypes.Computer.map(function(player) {
+        return (player.name);
+    });
+
+  var allOptions = $.merge( $.merge( [], userOptions ), computerOptions );
+
+  var step = 0;
+  var limit = allOptions.length - 2;
+
+  setInterval(function(){
+    step = (step > limit) ? 0 : step + 1;
+    $("#title-image").attr("src","images/"+allOptions[step]+".jpg")
+
+  },5000);
+});
