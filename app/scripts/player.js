@@ -340,7 +340,6 @@ $(document).on("click", ".play", function(e) {
       if(++i === magicCounter){
         window.clearInterval(magicAttempts);
       }
-      console.log(i);
     },15000);
 
     window.clearInterval(staticImage);
