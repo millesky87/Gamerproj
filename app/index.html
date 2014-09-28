@@ -51,7 +51,7 @@
   <div class="main-wrap hide">
   <div class="stage">
     <div class="area human-area">
-              <script id='human-name' type="text/template">
+      <script id='human-name' type="text/template">
         <img id='human-image' class="human-idle" src="images/<%= name %>.jpg"/>
       </script>  
     </div>
@@ -63,29 +63,38 @@
   
 </div>
     <div class="human player">
-      <p></p>
+      <h2></h2>
 
       <div class="health">
         <span></span>
       </div>
-      <a href="#" class="button attack">Attack</a>
-      <a href="#" class="button magic">Use Magic</a>
-      <ul class="attack-history"></ul>
 
-      <ul class="human-weapons"></ul>
+      <ul class="attack-history"></ul>
+        <div class="engage-options">
+          <ul class="human-weapons option-list"></ul>
+          <ul class="magic-options option-list"></ul>
+      </div>
+
       <script type="text/template" id="weapon-options">
-        <li><a href="" class="button" points="<%= points %>"> <%= weapon %></a></li>
+        <li><a href="" class="weapon button" points="<%= points %>"> <%= weapon %></a></li>
       </script>
+        <div class="engage-methods">
+            <a href="#" class="button attack">Attack</a>
+            <a href="#" class="button magic">Use Magic</a>
+        </div>
     </div>
 
 
     <div class="computer player">
-      <p></p>
+      <h2></h2>
 
       <div class="health">
         <span></span>
       </div>
       <ul class="attack-history"></ul>
+      <div class="engage-options">
+          <ul class="computer-weapons option-list"></ul>
+      </div>
     </div>
   </div>
 

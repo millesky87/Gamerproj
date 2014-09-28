@@ -51,6 +51,10 @@ var url = "http://tiny-pizza-server.herokuapp.com/collections/the-iron-brawl/",
     user,
     computer;
 
+function randomNum(min, max){
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 
 function buildConstructors(playerType) {
     _.each(playerTypes[playerType], function(player) {
@@ -60,6 +64,70 @@ function buildConstructors(playerType) {
             window[player.name.toLowerCase()] = new Computer(player);
     });
 }
+
+/* ------------------------------------------------
+    Create Players
+*/
+
+function Player(options) {
+    options = options || {};
+    this.health = 100 || options.health;
+    this.id = 1 || options.id;
+    this.name = "" || options.name;
+    this.voodooFactor = "100" || options.voodooFactor;
+    this.weapons = [{
+        type: 'sword',
+        points: 3
+    }, {
+        type: 'handslap',
+        points: 2
+    }];
+    this.power = 1000 || options.power;
+}
+
+// Attack prototype
+Player.prototype.attack = function(attacked) {
+    var hitPoints = randomNum(0, 10);
+    attacked.health = attacked.health - hitPoints;
+    if (this instanceof User) {
+        $(".human .attack-history").html("<li>Attacked and took " + hitPoints + " health points from " + computer.name + "</li>");
+    } else
+        $(".computer .attack-history").html("<li>Attacked and took " + hitPoints + " health points from " + user.name + "</li>");
+};
+
+
+/* ------------------------------------------------
+    Create Users (human)
+*/
+
+function User(options) {
+    options = options || {};
+    Player.apply(this, arguments);
+    this.weapons = _.union(options.weapons, this.weapons) || "";
+    this.power = options.power || "";
+    this.name = options.name || "";
+}
+User.prototype = Object.create(Player.prototype);
+
+buildConstructors("User");
+
+
+/* ------------------------------------------------
+    Create Computers (enemies)
+*/
+
+function Computer(options) {
+    options = options || {};
+    Player.apply(this, arguments);
+    this.weapons = _.union(options.weapons, this.weapons) || "";
+    this.power = options.power || "";
+    this.name = options.name || "";
+}
+Computer.prototype = Object.create(Player.prototype);
+
+buildConstructors("Computer");
+
+
 
 function displayPlayers(data, constructor) {
     _.chain(data).each(function(type) {
@@ -104,88 +172,29 @@ userSelect = new Template({
 });
 
 displayPlayers(playerTypes.User, userSelect);
-// displayPlayers(playerTypes.Computer, computerSelect);
 
 
-/* ------------------------------------------------
-    Create Players
-*/
-
-function Player(options) {
-    options = options || {};
-    this.health = 100 || options.health;
-    this.id = 1 || options.id;
-    this.name = "" || options.name;
-    this.voodooFactor = "100" || options.voodooFactor;
-    this.weapons = [{
-        type: 'sword',
-        points: 3
-    }, {
-        type: 'handslap',
-        points: 2
-    }];
-    this.power = 1000 || options.power;
-}
-
-// Attack prototype
-Player.prototype.attack = function(attacked) {
-    var hitPoints = Math.floor(Math.random() * 10);
-    attacked.health = attacked.health - hitPoints;
-    if (this instanceof User) {
-        $(".human .attack-history").html("<li>Attacked and took " + hitPoints + " health points from " + computer.name + "</li>");
-    } else
-        $(".computer .attack-history").html("<li>Attacked and took " + hitPoints + " health points from " + user.name + "</li>");
-};
-
-
-/* ------------------------------------------------
-    Create Users (human)
-*/
-
-function User(options) {
-    options = options || {};
-    Player.apply(this, arguments);
-    this.weapons = _.union(options.weapons, this.weapons) || "";
-    this.power = options.power || "";
-    this.name = options.name || "";
-}
-User.prototype = Object.create(Player.prototype);
-
-buildConstructors("User");
-
-
-/* ------------------------------------------------
-    Create Computers (enemies)
-*/
-
-function Computer(options) {
-    options = options || {};
-    Player.apply(this, arguments);
-    this.weapons = _.union(options.weapons, this.weapons) || "";
-    this.power = options.power || "";
-    this.name = options.name || "";
-}
-Computer.prototype = Object.create(Player.prototype);
-
-buildConstructors("Computer");
-
-
-/* ------------------------------------------------
-    Create Computers (enemies)
-*/
+var renderWeapons = new Template({
+    id: "weapon-options",
+    where: "human-weapons"
+});
 
 function addWeapons(user) {
-
-    console.log("User:", user);
-
     _.each(user.weapons, function(weapon) {
         renderWeapons.render({
             weapon: weapon.type,
-            points: weapon.points
-        })
-    })
+            points: weapon.points,
+            where: "human-weapons",
+        });
+    });
+    // _.each(computer.weapons, function(weapon) {
+    //     renderWeapons.render({
+    //         weapon: weapon.type,
+    //         points: weapon.points
+    //     });
+    // });
+}
 
-};
 
 function createGame(gameInfo) {
 
@@ -214,7 +223,7 @@ function animatePlayers() {
     }, 1000);
 }
 
-function conjureMagic(type) {
+function conjureMagic() {
 
     var magicAffectTime = 5,
         i = 0,
@@ -228,11 +237,6 @@ function conjureMagic(type) {
         }
     }, 2000);
 }
-
-var renderWeapons = new Template({
-    id: "weapon-options",
-    where: "human-weapons"
-});
 
 function stagePlayers(userName, computerName){
     userSelection = new Template({
@@ -252,6 +256,31 @@ function stagePlayers(userName, computerName){
     computerSelection.render({
         "name": computerName
     });
+}
+
+function getEngageOption(){
+    var points = $(".options-list").find("selected").attr("points");
+    console.log(points);
+    return points;
+}
+
+function giveLife(){
+    var w = randomNum(0, 100);
+    if (w > 50)
+        user.health += 5;
+    else 
+        computer.health += 5;
+
+}
+
+
+// First aid kits
+function firstAid(){
+
+    var waitTime = randomNum(6000, 10000);
+
+    setInterval(setTimeout(giveLife, waitTime), 10000);
+
 }
 
 /* ------------------------------------------------
@@ -275,8 +304,8 @@ $(document).on("click", ".play", function(e) {
 
     addWeapons(user);
 
-    $(".human p").html("<p>" + user.name + "</p>");
-    $(".computer p").html("<p>" + computer.name + "</p>");
+    $(".human h2").html("<p>" + user.name + "</p>");
+    $(".computer h2").html("<p>" + computer.name + "</p>");
 
     $(".main-wrap").removeClass("hide");
     $("#home").addClass("hide");
@@ -289,6 +318,9 @@ $(document).on("click", ".play", function(e) {
 $(document).on("click", ".attack", function(e) {
     e.preventDefault();
 
+    var pointSub = getEngageOption();
+    console.log(pointSub);
+
     user.attack(computer);
     computer.attack(user);
 
@@ -300,8 +332,22 @@ $(document).on("click", ".attack", function(e) {
 
 });
 
+
+$(document).on("click", ".weapon", function(e) {
+    e.preventDefault();
+    $(this).parent().siblings().find(".weapon").removeClass("selected");
+    $(this).addClass("selected");
+
+});
+
+
 // Magic button
 $(document).on("click", ".magic", function(e) {
     e.preventDefault();
-    conjureMagic(type);
+    conjureMagic();
 });
+
+
+$(function(){
+    firstAid();
+})
