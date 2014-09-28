@@ -13,6 +13,14 @@
 	h2{
 		color:green;
 	}
+	select,label{
+		display: inline-block;
+		min-height: 0;
+		float:none;
+	}
+	select{
+		width:60%;
+	}
 }
 
 .create{
