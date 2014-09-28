@@ -6,21 +6,21 @@ var url = "http://tiny-pizza-server.herokuapp.com/collections/the-iron-brawl/",
         "User": [{
             name: "Mady",
             weapons: [{
-                type: 'animalMimicry',
+                type: 'animal mimicry',
                 points: 5
             }],
             power: 600
         }, {
             name: "Jonathan",
             weapons: [{
-                type: 'psychicBlast',
+                type: 'psychic blast',
                 points: 5
             }],
             power: 200
         }, {
             name: "Skylar",
             weapons: [{
-                type: 'biologicalManipulation',
+                type: 'biological manipulation',
                 points: 5
             }],
             power: 900
@@ -28,21 +28,21 @@ var url = "http://tiny-pizza-server.herokuapp.com/collections/the-iron-brawl/",
         "Computer": [{
             name: "Mason",
             weapons: [{
-                type: 'intellectualStare',
+                type: 'intellectual stare',
                 points: 5
             }],
             power: 1000
         }, {
             name: "Jake",
             weapons: [{
-                type: 'deathWishCoffee',
+                type: 'death wish coffee',
                 points: 5
             }],
             power: 800
         }, {
             name: "Matt",
             weapons: [{
-                type: 'zenKoan',
+                type: 'zen koan',
                 points: 5
             }],
             power: 600
@@ -54,6 +54,28 @@ var url = "http://tiny-pizza-server.herokuapp.com/collections/the-iron-brawl/",
 function randomNum(min, max){
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+$(document).ready(function(){
+
+  var userOptions = playerTypes.User.map(function(player) {
+        return (player.name);
+    });
+
+  var computerOptions =playerTypes.Computer.map(function(player) {
+        return (player.name);
+    });
+
+  var allOptions = $.merge( $.merge( [], userOptions ), computerOptions );
+
+  var step = 0;
+  var limit = allOptions.length - 2;
+
+  setInterval(function(){
+    step = (step > limit) ? 0 : step + 1;
+    $("#title-image").attr("src","images/"+allOptions[step]+".jpg")
+
+  },5000);
+});
 
 
 function buildConstructors(playerType) {
@@ -268,10 +290,9 @@ function giveLife(){
     var w = randomNum(0, 100);
     if (w > 50)
         user.health += 5;
-    else 
+    else
         computer.health += 5;
-
-}
+};
 
 
 // First aid kits
