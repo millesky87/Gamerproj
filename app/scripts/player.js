@@ -49,34 +49,13 @@ var url = "http://tiny-pizza-server.herokuapp.com/collections/the-iron-brawl/",
         }]
     },
     user,
-    computer;
+    computer,
+    staticImage,
+    magicAttempts;
 
 function randomNum(min, max){
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-
-$(document).ready(function(){
-
-  var userOptions = playerTypes.User.map(function(player) {
-        return (player.name);
-    });
-
-  var computerOptions =playerTypes.Computer.map(function(player) {
-        return (player.name);
-    });
-
-  var allOptions = $.merge( $.merge( [], userOptions ), computerOptions );
-
-  var step = 0;
-  var limit = allOptions.length - 2;
-
-  setInterval(function(){
-    step = (step > limit) ? 0 : step + 1;
-    $("#title-image").attr("src","images/"+allOptions[step]+".jpg")
-
-  },5000);
-});
-
 
 function buildConstructors(playerType) {
     _.each(playerTypes[playerType], function(player) {
@@ -258,6 +237,20 @@ function animatePlayers() {
     }, 1000);
 }
 
+function conjureMagic() {
+
+    var magicAffectTime = 5,
+        i = 0,
+        magicInterval;
+    magicInterval = setInterval(function() {
+        console.log("Using magic - reduction", computer);
+        computer.health = computer.health - 5;
+        updateHealthBar();
+        if (++i === magicAffectTime) {
+            window.clearInterval(magicInterval);
+        }
+    }, 2000);
+}
 
 function stagePlayers(userName, computerName){
     userSelection = new Template({
@@ -335,6 +328,21 @@ $(document).on("click", ".play", function(e) {
     $(".main-wrap").removeClass("hide");
     $("#home").addClass("hide");
 
+    var i = 0,
+    magicCounter = 3;
+    var magicAttempts = setInterval(function(){
+      $(".magic").toggleClass("hide")
+      setTimeout(function(){
+        $(".magic").toggleClass("hide")
+      },3000);
+      if(++i === magicCounter){
+        window.clearInterval(magicAttempts);
+      }
+      console.log(i);
+    },15000);
+
+    window.clearInterval(staticImage);
+
     //createGame(user);
 });
 
@@ -369,7 +377,7 @@ $(document).on("click", ".weapon", function(e) {
 // Magic button
 $(document).on("click", ".magic", function(e) {
     e.preventDefault();
-    user.conjureMagic(computer);
+    conjureMagic();
 });
 
 $(document).on("click", ".gameType-select .button", function(e) {
@@ -381,5 +389,28 @@ $(document).on("click", ".gameType-select .button", function(e) {
 
 
 $(function(){
-    firstAid();
-})
+  var userOptions = playerTypes.User.map(function(player) {
+        return (player.name);
+    });
+
+  var computerOptions =playerTypes.Computer.map(function(player) {
+        return (player.name);
+    });
+
+  var allOptions = $.merge( $.merge( [], userOptions ), computerOptions );
+
+  var step = 0;
+  var limit = allOptions.length - 2;
+
+  // setInterval(function(){
+  //   step = (step > limit) ? 0 : step + 1;
+  //   $("#title-image").attr("src","images/"+allOptions[step]+".jpg")
+  //
+  // },5000);
+
+
+  staticImage = setInterval(function(){
+    step = (step > limit) ? 0 : step + 1;
+    $("#title-image").attr("src","images/"+allOptions[step]+".jpg")
+  },5000);
+});
