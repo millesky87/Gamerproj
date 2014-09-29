@@ -101,18 +101,22 @@ a {
 }
 
 .engage-methods, .engage-options{
+    @include span-columns(12);
+    // @include shift(1);
+}
+
+.engage-methods{
     @include span-columns(10);
     @include shift(2);
-}
-.engage-methods{
     margin-bottom:em(50px);
 }
 
 .option-list{
     margin-top: 1em;
-    @include span-columns(6 of 12);
+    @include span-columns(12);
     a{
         font-size: em(13px);
+        border-radius: 0;
     }
     li{
         margin-bottom:.5em;
@@ -136,6 +140,14 @@ select {
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.5);
     transition: .3s;
 
+}
+
+.weapon{
+    font-size: .5em;
+    span{
+        font-size: .4em;
+        color:#ebebeb;
+    }
 }
 
 .selected{

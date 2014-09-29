@@ -7,21 +7,21 @@ var url = "http://tiny-pizza-server.herokuapp.com/collections/the-iron-brawl/",
             name: "Mady",
             weapons: [{
                 type: 'animal mimicry',
-                points: 5
+                points: [10,15]
             }],
             power: 600
         }, {
             name: "Jonathan",
             weapons: [{
                 type: 'psychic blast',
-                points: 5
+                points: [10,15]
             }],
             power: 200
         }, {
             name: "Skylar",
             weapons: [{
                 type: 'biological manipulation',
-                points: 5
+                points: [10,15]
             }],
             power: 900
         }, ],
@@ -29,21 +29,21 @@ var url = "http://tiny-pizza-server.herokuapp.com/collections/the-iron-brawl/",
             name: "Mason",
             weapons: [{
                 type: 'intellectual stare',
-                points: 5
+                points: [15,20]
             }],
             power: 1000
         }, {
             name: "Jake",
             weapons: [{
                 type: 'death wish coffee',
-                points: 5
+                points: [10,15]
             }],
             power: 800
         }, {
             name: "Matt",
             weapons: [{
                 type: 'zen koan',
-                points: 5
+                points: [5,10]
             }],
             power: 600
         }]
@@ -54,6 +54,7 @@ var url = "http://tiny-pizza-server.herokuapp.com/collections/the-iron-brawl/",
     magicAttempts;
 
 function randomNum(min, max){
+    console.log("Function: ",min, max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
@@ -78,17 +79,21 @@ function Player(options) {
     this.voodooFactor = "100" || options.voodooFactor;
     this.weapons = [{
         type: 'sword',
-        points: 3
+        points: [3,10]
     }, {
         type: 'handslap',
-        points: 2
+        points: [2,6]
     }];
     this.power = 1000 || options.power;
 }
 
 // Attack prototype
-Player.prototype.attack = function(attacked) {
-    var hitPoints = randomNum(0, 10);
+Player.prototype.attack = function(attacked, hitPoints) {
+    if (hitPoints) {
+        hitPoints = hitPoints.split(',');
+        hitPoints = randomNum(+hitPoints[0], +hitPoints[1]);
+    }
+        else hitPoints = randomNum(0, 10);
     attacked.health = attacked.health - hitPoints;
     if (this instanceof User) {
         $(".human .attack-history").html("<li>Attacked and took " + hitPoints + " health points from " + computer.name + "</li>");
@@ -269,7 +274,7 @@ function stagePlayers(userName, computerName){
 }
 
 function getEngageOption(){
-    var points = $(".options-list").find("selected").attr("points");
+    var points = $(".human-weapons").find(".selected").attr("points");
     console.log(points);
     return points;
 }
@@ -349,7 +354,7 @@ $(document).on("click", ".attack", function(e) {
     var pointSub = getEngageOption();
     console.log(pointSub);
 
-    user.attack(computer);
+    user.attack(computer, pointSub);
     computer.attack(user);
 
     checkHealth(user.health, computer.health);
