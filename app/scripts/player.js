@@ -54,7 +54,6 @@ var url = "http://tiny-pizza-server.herokuapp.com/collections/the-iron-brawl/",
     magicAttempts;
 
 function randomNum(min, max){
-    console.log("Function: ",min, max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
@@ -88,7 +87,7 @@ function Player(options) {
 }
 
 // Attack prototype
-Player.prototype.attack = function(attacked, hitPoints) {
+Player.prototype.attack = function(attacked, hitPoints, type) {
     if (hitPoints) {
         hitPoints = hitPoints.split(',');
         hitPoints = randomNum(+hitPoints[0], +hitPoints[1]);
@@ -96,9 +95,9 @@ Player.prototype.attack = function(attacked, hitPoints) {
         else hitPoints = randomNum(0, 10);
     attacked.health = attacked.health - hitPoints;
     if (this instanceof User) {
-        $(".human .attack-history").html("<li>Attacked and took " + hitPoints + " health points from " + computer.name + "</li>");
+        $(".human .attack-history").html("<li>Attacked with "+type+" and took " + hitPoints + " health points from " + computer.name + "</li>");
     } else
-        $(".computer .attack-history").html("<li>Attacked and took " + hitPoints + " health points from " + user.name + "</li>");
+        $(".computer .attack-history").html("<li>Attacked "+type+" and took " + hitPoints + " health points from " + user.name + "</li>");
 };
 
 Player.prototype.conjureMagic = function(cursed) {
@@ -314,8 +313,6 @@ $(document).on("click", ".play", function(e) {
 
     player2 = player2[Math.floor(Math.random() * player2.length)];
 
-    console.log(player1,player2);
-
     stagePlayers(player1, player2);
 
     user = window[player1.toLowerCase()];
@@ -343,6 +340,7 @@ $(document).on("click", ".play", function(e) {
 
     window.clearInterval(staticImage);
 
+    firstAid();
     //createGame(user);
 });
 
@@ -351,11 +349,13 @@ $(document).on("click", ".play", function(e) {
 $(document).on("click", ".attack", function(e) {
     e.preventDefault();
 
-    var pointSub = getEngageOption();
-    console.log(pointSub);
+    var pointSub = $(this).closest(".player").find(".selected").attr("points"); //getEngageOption("points");
 
-    user.attack(computer, pointSub);
-    computer.attack(user);
+    var type = $(this).closest(".player").find(".selected").text();
+
+    var computerWeapon = randomNum(0, computer.weapons.length-1);
+    user.attack(computer, pointSub, type);
+    computer.attack(user, pointSub, computer.weapons[computerWeapon].type);
 
     checkHealth(user.health, computer.health);
 
