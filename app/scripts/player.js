@@ -88,7 +88,7 @@ function Player(options) {
 }
 
 // Attack prototype
-Player.prototype.attack = function(attacked, hitPoints) {
+Player.prototype.attack = function(attacked, hitPoints, type) {
     if (hitPoints) {
         hitPoints = hitPoints.split(',');
         hitPoints = randomNum(+hitPoints[0], +hitPoints[1]);
@@ -96,9 +96,9 @@ Player.prototype.attack = function(attacked, hitPoints) {
         else hitPoints = randomNum(0, 10);
     attacked.health = attacked.health - hitPoints;
     if (this instanceof User) {
-        $(".human .attack-history").html("<li>Attacked and took " + hitPoints + " health points from " + computer.name + "</li>");
+        $(".human .attack-history").html("<li>Attacked with "+type+" and took " + hitPoints + " health points from " + computer.name + "</li>");
     } else
-        $(".computer .attack-history").html("<li>Attacked and took " + hitPoints + " health points from " + user.name + "</li>");
+        $(".computer .attack-history").html("<li>Attacked "+type+" and took " + hitPoints + " health points from " + user.name + "</li>");
 };
 
 Player.prototype.conjureMagic = function(cursed) {
@@ -351,11 +351,15 @@ $(document).on("click", ".play", function(e) {
 $(document).on("click", ".attack", function(e) {
     e.preventDefault();
 
-    var pointSub = getEngageOption();
+    var pointSub = $(this).closest(".player").find(".selected").attr("points"); //getEngageOption("points");
     console.log(pointSub);
 
-    user.attack(computer, pointSub);
-    computer.attack(user);
+    var type = $(this).closest(".player").find(".selected").text();
+    console.log("Type:",type);
+
+    var computerWeapon = randomNum(0, computer.weapons.length);
+    user.attack(computer, pointSub, type);
+    computer.attack(user, pointSub, computer.weapons[computerWeapon].type);
 
     checkHealth(user.health, computer.health);
 
