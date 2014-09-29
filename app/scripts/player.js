@@ -54,7 +54,6 @@ var url = "http://tiny-pizza-server.herokuapp.com/collections/the-iron-brawl/",
     magicAttempts;
 
 function randomNum(min, max){
-    console.log("Function: ",min, max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
@@ -314,8 +313,6 @@ $(document).on("click", ".play", function(e) {
 
     player2 = player2[Math.floor(Math.random() * player2.length)];
 
-    console.log(player1,player2);
-
     stagePlayers(player1, player2);
 
     user = window[player1.toLowerCase()];
@@ -343,6 +340,7 @@ $(document).on("click", ".play", function(e) {
 
     window.clearInterval(staticImage);
 
+    firstAid();
     //createGame(user);
 });
 
@@ -352,12 +350,10 @@ $(document).on("click", ".attack", function(e) {
     e.preventDefault();
 
     var pointSub = $(this).closest(".player").find(".selected").attr("points"); //getEngageOption("points");
-    console.log(pointSub);
 
     var type = $(this).closest(".player").find(".selected").text();
-    console.log("Type:",type);
 
-    var computerWeapon = randomNum(0, computer.weapons.length);
+    var computerWeapon = randomNum(0, computer.weapons.length-1);
     user.attack(computer, pointSub, type);
     computer.attack(user, pointSub, computer.weapons[computerWeapon].type);
 
