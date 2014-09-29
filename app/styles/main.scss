@@ -59,7 +59,8 @@ a {
 
 .stage {
     background-image: url("http://nsa27.casimages.com/img/2011/12/04/111204112522987978.png");
-    background-size: 100% 100%;
+    background-size: cover;
+    background-position: center center;
     @include outer-container;
     min-height: 300px;
     position: relative;

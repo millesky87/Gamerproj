@@ -173,7 +173,7 @@ function checkHealth(userHealth, computerHealth) {
         $(".you-lose").removeClass("hide");
         lose.play();
     }
-var win = new Audio('http://www.mariomayhem.com/downloads/sound_tracks/Super_Mario_Bros._1/06-level-complete.mp3');
+var win = new Audio('http://themushroomkingdom.net/sounds/wav/m&lss_battlestart.wav');
     if (computerHealth <= 0 && computerHealth < userHealth) {
         $(".attack").addClass("hide");
         $(".main-wrap").addClass("hide");
