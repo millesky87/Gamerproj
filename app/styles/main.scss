@@ -90,10 +90,10 @@ a {
 .player {
     @include outer-container;
     @include span-columns(6);
-    background: #CCC;
+    background: #7DE8FF;
     min-height: 200px;
     position: relative;
-    border-radius: 3px;
+    border-radius: 3em;
     h2{
         padding:0 em(10px);
         text-shadow: 0 1px 0 rgba(255,255,255,.7);

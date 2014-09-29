@@ -165,18 +165,20 @@ function updateHealthBar() {
     });
 
 }
-
+var lose = new Audio('http://themushroomkingdom.net/sounds/wav/smb/smb_gameover.wav');
 function checkHealth(userHealth, computerHealth) {
     if (userHealth <= 0 && userHealth < computerHealth) {
         $(".attack").addClass("hide");
         $(".main-wrap").addClass("hide");
         $(".you-lose").removeClass("hide");
+        lose.play();
     }
-
+var win = new Audio('http://www.mariomayhem.com/downloads/sound_tracks/Super_Mario_Bros._1/06-level-complete.mp3');
     if (computerHealth <= 0 && computerHealth < userHealth) {
         $(".attack").addClass("hide");
         $(".main-wrap").addClass("hide");
         $(".you-win").removeClass("hide");
+        win.play();
     }
 }
 
@@ -205,6 +207,12 @@ function addWeapons(user) {
             where: "human-weapons",
         });
     });
+    // _.each(computer.weapons, function(weapon) {
+    //     renderWeapons.render({
+    //         weapon: weapon.type,
+    //         points: weapon.points
+    //     });
+    // });
 }
 
 
@@ -336,6 +344,7 @@ $(document).on("click", ".play", function(e) {
       if(++i === magicCounter){
         window.clearInterval(magicAttempts);
       }
+      console.log(i);
     },15000);
 
     window.clearInterval(staticImage);
@@ -401,6 +410,13 @@ $(function(){
 
   var step = 0;
   var limit = allOptions.length - 2;
+
+  // setInterval(function(){
+  //   step = (step > limit) ? 0 : step + 1;
+  //   $("#title-image").attr("src","images/"+allOptions[step]+".jpg")
+  //
+  // },5000);
+
 
   staticImage = setInterval(function(){
     step = (step > limit) ? 0 : step + 1;
